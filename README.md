@@ -1,10 +1,16 @@
 minecraftswagmod
 ================
 
-swag Mod version 0.0.1 Pre-Alpha
+swag Mod version 0.0.2 Pre-Alpha
 
 Version History
 ===============
+0.0.2 Pre-Alpha
+
++Smelting Swag Ore into Swag Ingot with 0.6 xp
++Smelting Yolo Ore into Yolo Ingot with 1 xp
++Added Swag Sword with 4 hearts damage
+
 0.0.1 Pre-Alpha
 
 +Swag Ingot
