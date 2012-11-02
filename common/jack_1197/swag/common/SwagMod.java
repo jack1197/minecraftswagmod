@@ -31,11 +31,11 @@ public class SwagMod {
 	public static final Block yoloOreBlock = new SwagModOreBlock(501, 1, Material.rock)
 	.setHardness(2.0f).setStepSound(Block.soundStoneFootstep).setLightValue(0.4f).setCreativeTab(CreativeTabs.tabBlock).setBlockName("YoloOre");
 	private static final Item swagIngotItem = new ItemSwagModIngot(5000).setIconIndex(0).setItemName("SwagIngot").setCreativeTab(CreativeTabs.tabMaterials);
-	private static final Item swagToolIngotItem = new ItemSwagModIngot(5005).setIconIndex(0).setItemName("SwagMidIngot").setCreativeTab(CreativeTabs.tabMaterials);
+	private static final Item swagToolIngotItem = new ItemSwagModIngot(5007).setIconIndex(0).setItemName("SwagToolIngot").setCreativeTab(CreativeTabs.tabMaterials);
 	private static final Item swagEssenceItem = new ItemSwagModIngot(5006).setIconIndex(0).setItemName("SwagEssence").setCreativeTab(CreativeTabs.tabMaterials);
 	private static final Item yoloIngotItem = new ItemSwagModIngot(5001).setIconIndex(1).setItemName("YoloIngot").setCreativeTab(CreativeTabs.tabMaterials);
 	private static final Item yoloSwagIngotItem = new ItemSwagModIngot(5004).setIconIndex(4).setItemName("YoloSwagIngot").setCreativeTab(CreativeTabs.tabMaterials);
-	private static final Item swagDropItem = new ItemSwagModIngot(5000).setIconIndex(0).setItemName("SwagDrop").setCreativeTab(CreativeTabs.tabMaterials);
+	private static final Item swagDropItem = new ItemSwagModIngot(5005).setIconIndex(0).setItemName("SwagDrop").setCreativeTab(CreativeTabs.tabMaterials);
 	public static SwagModOreGenerator swagModOreGenerator = new SwagModOreGenerator();
 	private static final Item swagSwordItem = new SwagSwordItem(5002, swagToolMaterial).setIconIndex(2).setItemName("SwagSword").setCreativeTab(CreativeTabs.tabCombat);
 	private static final Item swagWeaponIngotItem = new ItemSwagModIngot(5003).setIconIndex(3).setItemName("SwagWeaponIngot").setCreativeTab(CreativeTabs.tabMaterials);
@@ -62,6 +62,7 @@ public class SwagMod {
 		LanguageRegistry.addName(swagOreBlock, "Swagite Ore");
 		LanguageRegistry.addName(yoloOreBlock, "Yolo Ore");
 		LanguageRegistry.addName(swagIngotItem, "Swag");
+		LanguageRegistry.addName(swagToolIngotItem, "Tool Grade Swag");
 		LanguageRegistry.addName(swagDropItem, "Swag Drop");
 		LanguageRegistry.addName(swagEssenceItem, "Swag Essence");
 		LanguageRegistry.addName(yoloSwagIngotItem, "YoloSwag Alloy");
