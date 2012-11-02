@@ -14,8 +14,6 @@ Added a bit:
 - +Added Tool grade swag, weapons grade swag, swag essence, and yoloswag alloy , no textures unless specifed
 - +Added recipe from swag essence to swag drop
 - +Smelting swag ore now gives swag essence
-- +
-- +
 
 0.0.2 Pre-Alpha
 
