@@ -6,6 +6,12 @@ swag Mod version 0.0.3 Pre-Alpha
 Version History
 ---------------
 
+0.0.4 Pre-Alpha
+
+Added a bit:
+- +Removed Swag Ingot, Tool Grade Swag, and Weapons grade swag
+- +Added crafting recipie for swag sword, from diamond sword
+
 0.0.3 Pre-Alpha
 
 Added a bit:
