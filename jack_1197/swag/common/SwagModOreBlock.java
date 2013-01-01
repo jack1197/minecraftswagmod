@@ -1,7 +1,7 @@
 package jack_1197.swag.common;
 
-import net.minecraft.src.Block;
-import net.minecraft.src.Material;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 
 public class SwagModOreBlock extends Block {
 

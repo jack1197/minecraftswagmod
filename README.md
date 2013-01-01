@@ -6,18 +6,25 @@ swag Mod version 0.0.3 Pre-Alpha
 Version History
 ---------------
 
+0.0.5 Pre-Alpha
+- +fixed imports for 1.4.6
+- +changed registerBlock(block) method calls to registerBlock(Block, name) calls due to deprecation
+- +internally changed textures to 32x to allow for future expansion
+- +added unused textures for swagblock and yolo block (swag block may be removed, swag is more an essencey thingy, at least at the moment)
+- +added yolo producing machine(currently is not functional) Yolo-o-matic
+
 0.0.4 Pre-Alpha
 
 Added a bit:
 - +Removed Swag Ingot, Tool Grade Swag, and Weapons grade swag
-- +Added crafting recipie for swag sword, from diamond sword
+- +Added crafting recipe for swag sword, from diamond sword
 
 0.0.3 Pre-Alpha
 
 Added a bit:
-- +Optimisation by deleting specific blocks and items classes and replaced with more generic classes
+- +Optimization by deleting specific blocks and items classes and replaced with more generic classes
 - +Added weapons grade swag and yolo-swag alloy textues
-- +Added Tool grade swag, weapons grade swag, swag essence, and yoloswag alloy , no textures unless specifed
+- +Added Tool grade swag, weapons grade swag, swag essence, and yoloswag alloy , no textures unless specified
 - +Added recipe from swag essence to swag drop
 - +Smelting swag ore now gives swag essence
 
