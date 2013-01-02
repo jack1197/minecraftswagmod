@@ -5,8 +5,10 @@ import jack_1197.swag.common.CommonProxy;
 
 public class ClientProxy extends CommonProxy {
 	@Override
-	public void registerRenderers(){
+	public void registerRenderers() {
 		MinecraftForgeClient.preloadTexture(BLOCKS);
 		MinecraftForgeClient.preloadTexture(ITEMS);
+		MinecraftForgeClient.preloadTexture("/jack_1197/swag/common/textures/SwagYoloConverter.png");
+		MinecraftForgeClient.preloadTexture("/jack_1197/swag/common/textures/SwagYoloConverterBackGround.png");
 	}
 }

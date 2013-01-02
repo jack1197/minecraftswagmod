@@ -6,6 +6,11 @@ swag Mod version 0.0.3 Pre-Alpha
 Version History
 ---------------
 
+0.0.6 Pre-Alpha
+
+- +working on making a machine to create yolo
+    - +has saving inventory, gui, tile entity, and some control logic, needs tick events, waiting for mcforge forum reply, no external texture yet
+
 0.0.5 Pre-Alpha
 - +fixed imports for 1.4.6
 - +changed registerBlock(block) method calls to registerBlock(Block, name) calls due to deprecation

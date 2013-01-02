@@ -1,5 +1,8 @@
 package jack_1197.swag.common;
 
+import javax.print.attribute.standard.Sides;
+
+import jack_1197.swag.client.ClientPacketHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -16,11 +19,18 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.common.registry.TickRegistry;
+import cpw.mods.fml.relauncher.Side;
 
-@Mod(modid = "jack_1197_SwagMod", name = "Swag Mod", version = "0.0.4 Pre-Alpha")
-@NetworkMod(clientSideRequired = true, serverSideRequired = false)
+/* Swag mod by jack_1197
+ * as this is one of my first mods some parts may be little modified tutorial code snippets
+ */
+@Mod(modid = "SwagMod", name = "Swag Mod", version = "0.0.6 Pre-Alpha")
+@NetworkMod(clientSideRequired = true, serverSideRequired = false, clientPacketHandlerSpec = @SidedPacketHandler(channels = { "SwagMod" }, packetHandler = ClientPacketHandler.class), serverPacketHandlerSpec = @SidedPacketHandler(channels = { "SwagMod" }, packetHandler = ServerPacketHandler.class))
 public class SwagMod {
 
 	static EnumToolMaterial swagToolMaterial = EnumHelper.addToolMaterial(
@@ -33,10 +43,11 @@ public class SwagMod {
 			Material.rock).setHardness(2.0f)
 			.setStepSound(Block.soundStoneFootstep).setLightValue(0.4f)
 			.setCreativeTab(CreativeTabs.tabBlock).setBlockName("YoloOre");
-	public static final Block swagYoloConverterBlock = new SwagYoloConverterBlock(502, 4,
-			Material.rock).setHardness(2.0f)
+	public static final Block swagYoloConverterBlock = new SwagYoloConverterBlock(
+			502, 4, Material.rock).setHardness(2.0f)
 			.setStepSound(Block.soundStoneFootstep).setLightValue(0.4f)
-			.setCreativeTab(CreativeTabs.tabBlock).setBlockName("SwagYoloConverter");
+			.setCreativeTab(CreativeTabs.tabDecorations)
+			.setBlockName("SwagYoloConverter");
 	private static final Item swagEssenceItem = new SwagModIngotItem(5006)
 			.setIconIndex(0).setItemName("SwagEssence")
 			.setCreativeTab(CreativeTabs.tabMaterials);
@@ -53,6 +64,8 @@ public class SwagMod {
 	private static final Item swagSwordItem = new SwagToolItem(5002,
 			swagToolMaterial).setIconIndex(2).setItemName("SwagSword")
 			.setCreativeTab(CreativeTabs.tabCombat);
+	private GuiHandler guiHandler = new GuiHandler();
+
 	@Instance("SwagMod")
 	public static SwagMod Instance;
 
@@ -78,7 +91,10 @@ public class SwagMod {
 						swagDropItem), 'T', new ItemStack(Item.swordDiamond),
 				'I', new ItemStack(Item.diamond), 'Y', new ItemStack(
 						yoloIngotItem));
-		GameRegistry.registerBlock(swagYoloConverterBlock, "swagYoloConverter");
+		GameRegistry.registerBlock(swagYoloConverterBlock,
+				"swagYoloConverter");
+		GameRegistry.registerTileEntity(SwagYoloConverterTileEntity.class,
+				"swagYoloConverter");
 		GameRegistry.registerBlock(swagOreBlock, "swagOre");
 		GameRegistry.registerBlock(yoloOreBlock, "yoloOre");
 		GameRegistry.registerWorldGenerator(swagModOreGenerator);
@@ -90,6 +106,7 @@ public class SwagMod {
 		LanguageRegistry.addName(yoloSwagIngotItem, "YoloSwag Alloy");
 		LanguageRegistry.addName(yoloIngotItem, "Yolo Ingot");
 		LanguageRegistry.addName(swagSwordItem, "Swag Sword");
+		NetworkRegistry.instance().registerGuiHandler(this, guiHandler);
 	}
 
 	@PreInit
