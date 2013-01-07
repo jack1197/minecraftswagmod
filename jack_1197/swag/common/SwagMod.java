@@ -6,7 +6,12 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemAxe;
+import net.minecraft.item.ItemHoe;
+import net.minecraft.item.ItemPickaxe;
+import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
 import net.minecraftforge.common.EnumHelper;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
@@ -43,11 +48,11 @@ public class SwagMod {
 	static EnumToolMaterial swagYoloToolMaterial = EnumHelper.addToolMaterial("swagYolo", 3, 2300, 15.0F, 19, 30);
 
 	// Block declarations
-	public static final Block swagOreBlock = new SwagModBlock(500, 0, Material.rock).setHardness(2.0f).setStepSound(Block.soundStoneFootstep).setLightValue(0.3f)
-			.setCreativeTab(CreativeTabs.tabBlock).setBlockName("SwagOre");
+	public static final Block swagOreBlock = new Block(500, 0, Material.rock).setHardness(2.0f).setStepSound(Block.soundStoneFootstep).setLightValue(0.3f)
+			.setCreativeTab(CreativeTabs.tabBlock).setBlockName("SwagOre").setTextureFile(CommonProxy.BLOCKS);
 
-	public static final Block yoloOreBlock = new SwagModBlock(501, 1, Material.rock).setHardness(2.0f).setStepSound(Block.soundStoneFootstep).setLightValue(0.4f)
-			.setCreativeTab(CreativeTabs.tabBlock).setBlockName("YoloOre");
+	public static final Block yoloOreBlock = new Block(501, 1, Material.rock).setHardness(2.0f).setStepSound(Block.soundStoneFootstep).setLightValue(0.4f)
+			.setCreativeTab(CreativeTabs.tabBlock).setBlockName("YoloOre").setTextureFile(CommonProxy.BLOCKS);
 	public static final Block swagYoloConverterBlock = new SwagYoloConverterBlock(510, 5, Material.rock).setHardness(2.0f).setStepSound(Block.soundStoneFootstep)
 			.setCreativeTab(CreativeTabs.tabDecorations).setBlockName("SwagYoloConverter");
 
@@ -58,33 +63,41 @@ public class SwagMod {
 			.setBlockName("Fuser").setLightValue(0.9F);
 
 	// Item Declarations
-	public static final Item swagEssenceItem = new SwagModItem(5000).setMaxStackSize(32).setIconCoord(0, 0).setItemName("SwagEssence").setCreativeTab(CreativeTabs.tabMaterials);
-	public static final Item swagDropItem = new SwagModItem(5001).setMaxStackSize(32).setIconCoord(0, 1).setItemName("SwagDrop").setCreativeTab(CreativeTabs.tabMaterials);
+	public static final Item swagEssenceItem = new Item(5000).setMaxStackSize(32).setIconCoord(0, 0).setItemName("SwagEssence").setCreativeTab(CreativeTabs.tabMaterials)
+			.setTextureFile(CommonProxy.BLOCKS);
+	public static final Item swagDropItem = new Item(5001).setMaxStackSize(32).setIconCoord(0, 1).setItemName("SwagDrop").setCreativeTab(CreativeTabs.tabMaterials)
+			.setTextureFile(CommonProxy.BLOCKS);
 
-	public static final Item swagOrbItem = new SwagModItem(5002).setMaxStackSize(16).setIconCoord(0, 2).setItemName("SwagOrb").setCreativeTab(CreativeTabs.tabMaterials);
-	public static final Item yoloEssenceItem = new SwagModItem(5010).setMaxStackSize(32).setIconCoord(1, 0).setItemName("YoloEssence").setCreativeTab(CreativeTabs.tabMaterials);
-	public static final Item yoloEssenceDenseItem = new SwagModItem(5011).setMaxStackSize(16).setIconCoord(1, 3).setItemName("YoloEssenceDense").setCreativeTab(CreativeTabs.tabMaterials);
-	public static final Item yoloDropItem = new SwagModItem(5012).setMaxStackSize(32).setIconCoord(1, 1).setItemName("YoloDrop").setCreativeTab(CreativeTabs.tabMaterials);
-	public static final Item yoloDropDenseItem = new SwagModItem(5013).setMaxStackSize(16).setIconCoord(1, 4).setItemName("YoloDropDense").setCreativeTab(CreativeTabs.tabMaterials);
+	public static final Item swagOrbItem = new Item(5002).setMaxStackSize(16).setIconCoord(0, 2).setItemName("SwagOrb").setCreativeTab(CreativeTabs.tabMaterials)
+			.setTextureFile(CommonProxy.BLOCKS);
+	public static final Item yoloEssenceItem = new Item(5010).setMaxStackSize(32).setIconCoord(1, 0).setItemName("YoloEssence").setCreativeTab(CreativeTabs.tabMaterials)
+			.setTextureFile(CommonProxy.BLOCKS);
+	public static final Item yoloEssenceDenseItem = new Item(5011).setMaxStackSize(16).setIconCoord(1, 3).setItemName("YoloEssenceDense").setCreativeTab(CreativeTabs.tabMaterials)
+			.setTextureFile(CommonProxy.BLOCKS);
+	public static final Item yoloDropItem = new Item(5012).setMaxStackSize(32).setIconCoord(1, 1).setItemName("YoloDrop").setCreativeTab(CreativeTabs.tabMaterials)
+			.setTextureFile(CommonProxy.BLOCKS);
+	public static final Item yoloDropDenseItem = new Item(5013).setMaxStackSize(16).setIconCoord(1, 4).setItemName("YoloDropDense").setCreativeTab(CreativeTabs.tabMaterials)
+			.setTextureFile(CommonProxy.BLOCKS);
 
-	public static final Item yoloOrbItem = new SwagModItem(5014).setMaxStackSize(32).setIconCoord(1, 2).setItemName("YoloOrb").setCreativeTab(CreativeTabs.tabMaterials);
+	public static final Item yoloOrbItem = new Item(5014).setMaxStackSize(32).setIconCoord(1, 2).setItemName("YoloOrb").setCreativeTab(CreativeTabs.tabMaterials)
+			.setTextureFile(CommonProxy.BLOCKS);
 
-	public static final Item yoloSwagIngotItem = new SwagModItem(5020).setIconCoord(2, 0).setItemName("YoloSwagIngot").setCreativeTab(CreativeTabs.tabMaterials);
+	public static final Item yoloSwagIngotItem = new Item(5020).setIconCoord(2, 0).setItemName("YoloSwagIngot").setCreativeTab(CreativeTabs.tabMaterials).setTextureFile(CommonProxy.BLOCKS);
 
 	// Tool declarations
-	public static final Item swagSwordItem = new SwagSwordItem(5100, swagToolMaterial).setIconCoord(0, 5).setItemName("SwagSword").setCreativeTab(CreativeTabs.tabCombat);
-	public static final Item swagShovelItem = new SwagShovelItem(5101, swagToolMaterial).setIconCoord(0, 6).setItemName("SwagSpade").setCreativeTab(CreativeTabs.tabTools);
-	public static final Item swagPickaxeItem = new SwagPickaxeItem(5102, swagToolMaterial).setIconCoord(0, 7).setItemName("SwagPickaxe").setCreativeTab(CreativeTabs.tabTools);
-	public static final Item swagAxeItem = new SwagAxeItem(5103, swagToolMaterial).setIconCoord(0, 8).setItemName("SwagAxe").setCreativeTab(CreativeTabs.tabTools);
-	public static final Item swagHoeItem = new SwagHoeItem(5104, swagToolMaterial).setIconCoord(0, 9).setItemName("SwagHoe").setCreativeTab(CreativeTabs.tabTools);// I have absolutely no
+	public static final Item swagSwordItem = new ItemSword(5100, swagToolMaterial).setIconCoord(0, 5).setItemName("SwagSword").setCreativeTab(CreativeTabs.tabCombat);
+	public static final Item swagShovelItem = new ItemSpade(5101, swagToolMaterial).setIconCoord(0, 6).setItemName("SwagSpade").setCreativeTab(CreativeTabs.tabTools);
+	public static final Item swagPickaxeItem = new ItemPickaxe(5102, swagToolMaterial).setIconCoord(0, 7).setItemName("SwagPickaxe").setCreativeTab(CreativeTabs.tabTools);
+	public static final Item swagAxeItem = new ItemAxe(5103, swagToolMaterial).setIconCoord(0, 8).setItemName("SwagAxe").setCreativeTab(CreativeTabs.tabTools);
+	public static final Item swagHoeItem = new ItemHoe(5104, swagToolMaterial).setIconCoord(0, 9).setItemName("SwagHoe").setCreativeTab(CreativeTabs.tabTools);// I have absolutely no
 																																									// idea
 																																									// why either...
 
-	public static final Item yoloSwordItem = new SwagSwordItem(5110, yoloToolMaterial).setIconCoord(1, 5).setItemName("YoloSword").setCreativeTab(CreativeTabs.tabCombat);
-	public static final Item yoloShovelItem = new SwagShovelItem(5111, yoloToolMaterial).setIconCoord(1, 6).setItemName("YoloSpade").setCreativeTab(CreativeTabs.tabTools);
-	public static final Item yoloPickaxeItem = new SwagPickaxeItem(5112, yoloToolMaterial).setIconCoord(1, 7).setItemName("YoloPickaxe").setCreativeTab(CreativeTabs.tabTools);
-	public static final Item yoloAxeItem = new SwagAxeItem(5113, yoloToolMaterial).setIconCoord(1, 8).setItemName("YoloAxe").setCreativeTab(CreativeTabs.tabTools);
-	public static final Item yoloHoeItem = new SwagHoeItem(5114, yoloToolMaterial).setIconCoord(1, 9).setItemName("YoloHoe").setCreativeTab(CreativeTabs.tabTools);// oh well, YOLO!!
+	public static final Item yoloSwordItem = new ItemSword(5110, yoloToolMaterial).setIconCoord(1, 5).setItemName("YoloSword").setCreativeTab(CreativeTabs.tabCombat);
+	public static final Item yoloShovelItem = new ItemSpade(5111, yoloToolMaterial).setIconCoord(1, 6).setItemName("YoloSpade").setCreativeTab(CreativeTabs.tabTools);
+	public static final Item yoloPickaxeItem = new ItemPickaxe(5112, yoloToolMaterial).setIconCoord(1, 7).setItemName("YoloPickaxe").setCreativeTab(CreativeTabs.tabTools);
+	public static final Item yoloAxeItem = new ItemAxe(5113, yoloToolMaterial).setIconCoord(1, 8).setItemName("YoloAxe").setCreativeTab(CreativeTabs.tabTools);
+	public static final Item yoloHoeItem = new ItemHoe(5114, yoloToolMaterial).setIconCoord(1, 9).setItemName("YoloHoe").setCreativeTab(CreativeTabs.tabTools);// oh well, YOLO!!
 
 	// technical declarations
 	private GuiHandler guiHandler = new GuiHandler();

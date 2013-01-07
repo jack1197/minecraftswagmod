@@ -8,7 +8,6 @@ Planned
 - +swag and yolo can be infused into iron ingots, and used for physical things like blocks
 - +new ore system, with 8 distinct levels of ore, for both swag and yolo, different levels will yield different amounts of yolo and swag
 - +crafting more stuffs
-- +remove unnecessary classes in favor for inline definitions using core minecraft block and item classes 
 
 Version History
 ---------------
