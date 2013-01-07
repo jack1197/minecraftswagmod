@@ -2,9 +2,10 @@ package jack_1197.swag.common;
 
 import net.minecraft.item.Item;
 
-public class SwagModIngotItem extends Item {
+//generic item
+public class SwagModItem extends Item {
 
-	public SwagModIngotItem(int par1) {
+	public SwagModItem(int par1) {
 		super(par1);
 	}
 

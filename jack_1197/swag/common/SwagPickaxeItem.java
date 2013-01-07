@@ -1,11 +1,11 @@
 package jack_1197.swag.common;
 
 import net.minecraft.item.EnumToolMaterial;
-import net.minecraft.item.ItemSword;
 
-public class SwagToolItem extends ItemSword {
-	public SwagToolItem(int par1, EnumToolMaterial mat) {
-		super(par1, mat);
+public class SwagPickaxeItem extends net.minecraft.item.ItemPickaxe {
+
+	public SwagPickaxeItem(int id, EnumToolMaterial material) {
+		super(id, material);
 	}
 
 	@Override

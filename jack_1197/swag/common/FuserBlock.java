@@ -13,58 +13,30 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class SwagYoloConverterBlock extends BlockContainer {
+public class FuserBlock extends BlockContainer {
 
-	private static boolean keepInventory = false;
-
-	public static void changeState(World world, int x, int y, int z, boolean lit) {
-		int meta = world.getBlockMetadata(x, y, z);
-		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
-		keepInventory = true;
-
-		if (lit) {
-			world.setBlockWithNotify(x, y, z, SwagMod.swagYoloConverterFueledBlock.blockID);
-		} else {
-			world.setBlockWithNotify(x, y, z, SwagMod.swagYoloConverterBlock.blockID);
-		}
-
-		keepInventory = false;
-		world.setBlockMetadataWithNotify(x, y, z, meta);
-
-		if (tileEntity != null) {
-			tileEntity.validate();
-			world.setBlockTileEntity(x, y, z, tileEntity);
-		}
-	}
-
-	protected SwagYoloConverterBlock(int par1, int par2, Material par3Material) {
+	protected FuserBlock(int par1, int par2, Material par3Material) {
 		super(par1, par2, par3Material);
 	}
 
 	@Override
 	public void breakBlock(World world, int x, int y, int z, int i, int j) {
-		if (!keepInventory)
-			dropItems(world, x, y, z);
-		super.breakBlock(world, x, y, z, i, j);
+		dropItems(world, x, y, z);
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World var1) {
-		return new SwagYoloConverterTileEntity();
+		return new FuserTileEntity();
 	}
 
 	// manage item drops
 	public void dropItems(World world, int x, int y, int z) {
 		Random rand = new Random();
 		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
-		if (!(tileEntity instanceof SwagYoloConverterTileEntity)) {
+		if (!(tileEntity instanceof FuserTileEntity)) {
 			return;
 		}
-		SwagYoloConverterTileEntity typedTileEntity = (SwagYoloConverterTileEntity) tileEntity;
-		if (SwagMod.swagYoloConvCanExplode && typedTileEntity.fuel > 12000) {
-			int power = (typedTileEntity.fuel - 12000) / 3000;
-			world.createExplosion(null, x, y, z, power, true);
-		}
+		FuserTileEntity typedTileEntity = (FuserTileEntity) tileEntity;
 		for (int i = 0; i < typedTileEntity.getSizeInventory(); i++) {
 			ItemStack item = typedTileEntity.getStackInSlot(i);
 			if (item != null) {
@@ -89,28 +61,24 @@ public class SwagYoloConverterBlock extends BlockContainer {
 	@Override
 	public int getBlockTextureFromSideAndMetadata(int side, int meta) {
 		switch (side) {
-		case 0:
-			return 6;
-		case 1:
-			return this.blockIndexInTexture;
 		case 2:
 			if (meta == 2)
-				return 8;
+				return 19;
 			break;
 		case 3:
 			if (meta == 0)
-				return 8;
+				return 19;
 			break;
 		case 4:
 			if (meta == 1)
-				return 8;
+				return 19;
 			break;
 		case 5:
 			if (meta == 3)
-				return 8;
+				return 19;
 			break;
 		}
-		return 4;
+		return 18;
 	}
 
 	@Override
@@ -118,14 +86,13 @@ public class SwagYoloConverterBlock extends BlockContainer {
 		return CommonProxy.BLOCKS;
 	}
 
-	// open gui when activated
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int i, float f, float g, float t) {
 		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
 		if (tileEntity == null || player.isSneaking()) {
 			return false;
 		}
-		player.openGui(SwagMod.Instance, 0, world, x, y, z);
+		player.openGui(SwagMod.Instance, 1, world, x, y, z);
 		return true;
 	}
 
@@ -133,4 +100,5 @@ public class SwagYoloConverterBlock extends BlockContainer {
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entity) {
 		world.setBlockMetadata(x, y, z, MathHelper.floor_double((entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3 ^ 2);
 	}
+
 }

@@ -1,7 +1,5 @@
 package jack_1197.swag.common;
 
-import javax.print.attribute.standard.Sides;
-
 import jack_1197.swag.client.ClientPacketHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -23,48 +21,78 @@ import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
-import cpw.mods.fml.common.registry.TickRegistry;
-import cpw.mods.fml.relauncher.Side;
 
-/* Swag mod by jack_1197
- * as this is one of my first mods some parts may be little modified tutorial code snippets
+/*
+ * Swag mod by jack_1197 as this is one of my first mods some parts may be little modified tutorial code snippets
  */
+// annotations, you dont say?
 @Mod(modid = "SwagMod", name = "Swag Mod", version = "0.0.6 Pre-Alpha")
-@NetworkMod(clientSideRequired = true, serverSideRequired = false, clientPacketHandlerSpec = @SidedPacketHandler(channels = { "SwagMod" }, packetHandler = ClientPacketHandler.class), serverPacketHandlerSpec = @SidedPacketHandler(channels = { "SwagMod" }, packetHandler = ServerPacketHandler.class))
+@NetworkMod(clientSideRequired = true, serverSideRequired = false, clientPacketHandlerSpec = @SidedPacketHandler(channels = { "SwagMod" }, packetHandler = ClientPacketHandler.class),
+		serverPacketHandlerSpec = @SidedPacketHandler(channels = { "SwagMod" }, packetHandler = ServerPacketHandler.class))
 public class SwagMod {
+	// main declarations and stuffs
 
-	static EnumToolMaterial swagToolMaterial = EnumHelper.addToolMaterial(
-			"swag", 2, 1000, 10F, 8, 20);
-	public static final Block swagOreBlock = new SwagModOreBlock(500, 0,
-			Material.rock).setHardness(2.0f)
-			.setStepSound(Block.soundStoneFootstep).setLightValue(0.3f)
+	public static enum packetType {
+		SWAG_YOLO_CONVERTER_UPDATE, FUSER_UPDATE, FUSER_BUTTON_CLICK
+	}
+
+	// Tool Materials
+	static EnumToolMaterial swagToolMaterial = EnumHelper.addToolMaterial("swag", 3, 3000, 12.5F, 16, 15);
+	static EnumToolMaterial yoloToolMaterial = EnumHelper.addToolMaterial("yolo", 3, 1000, 18.0F, 22, 30);
+
+	static EnumToolMaterial swagYoloToolMaterial = EnumHelper.addToolMaterial("swagYolo", 3, 2300, 15.0F, 19, 30);
+
+	// Block declarations
+	public static final Block swagOreBlock = new SwagModBlock(500, 0, Material.rock).setHardness(2.0f).setStepSound(Block.soundStoneFootstep).setLightValue(0.3f)
 			.setCreativeTab(CreativeTabs.tabBlock).setBlockName("SwagOre");
-	public static final Block yoloOreBlock = new SwagModOreBlock(501, 1,
-			Material.rock).setHardness(2.0f)
-			.setStepSound(Block.soundStoneFootstep).setLightValue(0.4f)
+
+	public static final Block yoloOreBlock = new SwagModBlock(501, 1, Material.rock).setHardness(2.0f).setStepSound(Block.soundStoneFootstep).setLightValue(0.4f)
 			.setCreativeTab(CreativeTabs.tabBlock).setBlockName("YoloOre");
-	public static final Block swagYoloConverterBlock = new SwagYoloConverterBlock(
-			502, 4, Material.rock).setHardness(2.0f)
-			.setStepSound(Block.soundStoneFootstep).setLightValue(0.4f)
-			.setCreativeTab(CreativeTabs.tabDecorations)
-			.setBlockName("SwagYoloConverter");
-	private static final Item swagEssenceItem = new SwagModIngotItem(5006)
-			.setIconIndex(0).setItemName("SwagEssence")
-			.setCreativeTab(CreativeTabs.tabMaterials);
-	private static final Item yoloIngotItem = new SwagModIngotItem(5001)
-			.setIconIndex(1).setItemName("YoloIngot")
-			.setCreativeTab(CreativeTabs.tabMaterials);
-	private static final Item yoloSwagIngotItem = new SwagModIngotItem(5004)
-			.setIconIndex(4).setItemName("YoloSwagIngot")
-			.setCreativeTab(CreativeTabs.tabMaterials);
-	private static final Item swagDropItem = new SwagModIngotItem(5005)
-			.setIconIndex(0).setItemName("SwagDrop")
-			.setCreativeTab(CreativeTabs.tabMaterials);
-	public static SwagModOreGenerator swagModOreGenerator = new SwagModOreGenerator();
-	private static final Item swagSwordItem = new SwagToolItem(5002,
-			swagToolMaterial).setIconIndex(2).setItemName("SwagSword")
-			.setCreativeTab(CreativeTabs.tabCombat);
+	public static final Block swagYoloConverterBlock = new SwagYoloConverterBlock(510, 5, Material.rock).setHardness(2.0f).setStepSound(Block.soundStoneFootstep)
+			.setCreativeTab(CreativeTabs.tabDecorations).setBlockName("SwagYoloConverter");
+
+	public static final Block swagYoloConverterFueledBlock = new SwagYoloConverterBlock(511, 7, Material.rock).setHardness(2.0f).setStepSound(Block.soundStoneFootstep)
+			.setCreativeTab(CreativeTabs.tabDecorations).setBlockName("SwagYoloConverterLit").setLightValue(0.9F);
+
+	public static final Block fuserBlock = new FuserBlock(520, 7, Material.rock).setHardness(2.0f).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabDecorations)
+			.setBlockName("Fuser").setLightValue(0.9F);
+
+	// Item Declarations
+	public static final Item swagEssenceItem = new SwagModItem(5000).setMaxStackSize(32).setIconCoord(0, 0).setItemName("SwagEssence").setCreativeTab(CreativeTabs.tabMaterials);
+	public static final Item swagDropItem = new SwagModItem(5001).setMaxStackSize(32).setIconCoord(0, 1).setItemName("SwagDrop").setCreativeTab(CreativeTabs.tabMaterials);
+
+	public static final Item swagOrbItem = new SwagModItem(5002).setMaxStackSize(16).setIconCoord(0, 2).setItemName("SwagOrb").setCreativeTab(CreativeTabs.tabMaterials);
+	public static final Item yoloEssenceItem = new SwagModItem(5010).setMaxStackSize(32).setIconCoord(1, 0).setItemName("YoloEssence").setCreativeTab(CreativeTabs.tabMaterials);
+	public static final Item yoloEssenceDenseItem = new SwagModItem(5011).setMaxStackSize(16).setIconCoord(1, 3).setItemName("YoloEssenceDense").setCreativeTab(CreativeTabs.tabMaterials);
+	public static final Item yoloDropItem = new SwagModItem(5012).setMaxStackSize(32).setIconCoord(1, 1).setItemName("YoloDrop").setCreativeTab(CreativeTabs.tabMaterials);
+	public static final Item yoloDropDenseItem = new SwagModItem(5013).setMaxStackSize(16).setIconCoord(1, 4).setItemName("YoloDropDense").setCreativeTab(CreativeTabs.tabMaterials);
+
+	public static final Item yoloOrbItem = new SwagModItem(5014).setMaxStackSize(32).setIconCoord(1, 2).setItemName("YoloOrb").setCreativeTab(CreativeTabs.tabMaterials);
+
+	public static final Item yoloSwagIngotItem = new SwagModItem(5020).setIconCoord(2, 0).setItemName("YoloSwagIngot").setCreativeTab(CreativeTabs.tabMaterials);
+
+	// Tool declarations
+	public static final Item swagSwordItem = new SwagSwordItem(5100, swagToolMaterial).setIconCoord(0, 5).setItemName("SwagSword").setCreativeTab(CreativeTabs.tabCombat);
+	public static final Item swagShovelItem = new SwagShovelItem(5101, swagToolMaterial).setIconCoord(0, 6).setItemName("SwagSpade").setCreativeTab(CreativeTabs.tabTools);
+	public static final Item swagPickaxeItem = new SwagPickaxeItem(5102, swagToolMaterial).setIconCoord(0, 7).setItemName("SwagPickaxe").setCreativeTab(CreativeTabs.tabTools);
+	public static final Item swagAxeItem = new SwagAxeItem(5103, swagToolMaterial).setIconCoord(0, 8).setItemName("SwagAxe").setCreativeTab(CreativeTabs.tabTools);
+	public static final Item swagHoeItem = new SwagHoeItem(5104, swagToolMaterial).setIconCoord(0, 9).setItemName("SwagHoe").setCreativeTab(CreativeTabs.tabTools);// I have absolutely no
+																																									// idea
+																																									// why either...
+
+	public static final Item yoloSwordItem = new SwagSwordItem(5110, yoloToolMaterial).setIconCoord(1, 5).setItemName("YoloSword").setCreativeTab(CreativeTabs.tabCombat);
+	public static final Item yoloShovelItem = new SwagShovelItem(5111, yoloToolMaterial).setIconCoord(1, 6).setItemName("YoloSpade").setCreativeTab(CreativeTabs.tabTools);
+	public static final Item yoloPickaxeItem = new SwagPickaxeItem(5112, yoloToolMaterial).setIconCoord(1, 7).setItemName("YoloPickaxe").setCreativeTab(CreativeTabs.tabTools);
+	public static final Item yoloAxeItem = new SwagAxeItem(5113, yoloToolMaterial).setIconCoord(1, 8).setItemName("YoloAxe").setCreativeTab(CreativeTabs.tabTools);
+	public static final Item yoloHoeItem = new SwagHoeItem(5114, yoloToolMaterial).setIconCoord(1, 9).setItemName("YoloHoe").setCreativeTab(CreativeTabs.tabTools);// oh well, YOLO!!
+
+	// technical declarations
 	private GuiHandler guiHandler = new GuiHandler();
+	private ClientPacketHandler clientPacketHandler = new ClientPacketHandler();
+	private ServerPacketHandler serverPacketHandler = new ServerPacketHandler();
+	public static SwagModOreGenerator swagModOreGenerator = new SwagModOreGenerator();
+
+	protected static boolean swagYoloConvCanExplode = true;;
 
 	@Instance("SwagMod")
 	public static SwagMod Instance;
@@ -72,41 +100,51 @@ public class SwagMod {
 	@SidedProxy(clientSide = "jack_1197.swag.client.ClientProxy", serverSide = "jack_1197.swag.common.CommonProxy")
 	public static CommonProxy proxy;
 
-	@PreInit
-	public void preInit(FMLPreInitializationEvent event) {
-
+	static public int getSwagValue(ItemStack item) {
+		if (item.getItem() == SwagMod.swagEssenceItem) {
+			return 600;
+		} else if (item.getItem() == SwagMod.swagDropItem) {
+			return 4200;
+		} else if (item.getItem() == new ItemStack(SwagMod.swagOreBlock).getItem()) {
+			return 200;
+		} else if (item.getItem() == SwagMod.swagSwordItem) {
+			return 24000;
+		} else if (item.getItem() == SwagMod.yoloSwagIngotItem) {
+			return 24000;
+		} else if (item.getItem() == SwagMod.swagOrbItem) {
+			return 18000;
+		} else if (item.getItem() == Item.diamond) {
+			return 3000;
+		}
+		return 0;
 	}
 
-	@Init
-	public void preInit(FMLInitializationEvent event) {
-		proxy.registerRenderers();
-		GameRegistry.addSmelting(swagOreBlock.blockID, new ItemStack(
-				swagEssenceItem), 0.6f);
-		GameRegistry.addSmelting(yoloOreBlock.blockID, new ItemStack(
-				yoloIngotItem), 1.0f);
-		GameRegistry.addRecipe(new ItemStack(swagDropItem), " E ", "EEE",
-				"EEE", 'E', new ItemStack(swagEssenceItem));
-		GameRegistry.addRecipe(new ItemStack(swagSwordItem), "EDE", "ETE",
-				"IYI", 'E', new ItemStack(swagEssenceItem), 'D', new ItemStack(
-						swagDropItem), 'T', new ItemStack(Item.swordDiamond),
-				'I', new ItemStack(Item.diamond), 'Y', new ItemStack(
-						yoloIngotItem));
-		GameRegistry.registerBlock(swagYoloConverterBlock,
-				"swagYoloConverter");
-		GameRegistry.registerTileEntity(SwagYoloConverterTileEntity.class,
-				"swagYoloConverter");
-		GameRegistry.registerBlock(swagOreBlock, "swagOre");
-		GameRegistry.registerBlock(yoloOreBlock, "yoloOre");
-		GameRegistry.registerWorldGenerator(swagModOreGenerator);
-		LanguageRegistry.addName(swagOreBlock, "Swagite Ore");
-		LanguageRegistry.addName(swagYoloConverterBlock, "Yolo-o-Matic");
-		LanguageRegistry.addName(yoloOreBlock, "Yolo Ore");
-		LanguageRegistry.addName(swagDropItem, "Swag Drop");
-		LanguageRegistry.addName(swagEssenceItem, "Swag Essence");
-		LanguageRegistry.addName(yoloSwagIngotItem, "YoloSwag Alloy");
-		LanguageRegistry.addName(yoloIngotItem, "Yolo Ingot");
-		LanguageRegistry.addName(swagSwordItem, "Swag Sword");
-		NetworkRegistry.instance().registerGuiHandler(this, guiHandler);
+	static public int getYoloValue(ItemStack item) {
+		if (item.getItem() == Item.cookie) {
+			return 16;
+		}
+		if (item.getItem() == Item.ingotGold) {
+			return 128;
+		}
+		if (item.getItem() == Item.hoeDiamond) {
+			return 1024;
+		}
+		if (item.getItem() == Item.swordWood) {
+			return 16;
+		}
+		if (item.getItem() == Item.enderPearl) {
+			return 128;
+		}
+		if (item.getItem() == Item.pickaxeGold) {
+			return 256;
+		}
+		if (item.getItem() == new ItemStack(Block.tnt).getItem()) {
+			return 128;
+		}
+		if (item.getItem() == new ItemStack(Block.woodenButton).getItem()) {
+			return 16;
+		}
+		return 1;
 	}
 
 	@PreInit
@@ -114,4 +152,103 @@ public class SwagMod {
 
 	}
 
+	@Init
+	public void preInit(FMLInitializationEvent event) {
+		// smelting
+		GameRegistry.addSmelting(swagOreBlock.blockID, new ItemStack(swagEssenceItem), 0.6f);
+		GameRegistry.addSmelting(yoloOreBlock.blockID, new ItemStack(yoloEssenceItem), 1.0f);
+
+		// recipies
+		// swag crafting
+		GameRegistry.addRecipe(new ItemStack(swagDropItem), " E ", "EEE", "EEE", 'E', new ItemStack(swagEssenceItem));
+		GameRegistry.addRecipe(new ItemStack(swagOrbItem), "GDG", "DID", "GDG", 'G', new ItemStack(Block.glass), 'D', new ItemStack(swagDropItem), 'I', new ItemStack(Item.diamond));
+
+		// yolo crafting
+		GameRegistry.addShapelessRecipe(new ItemStack(yoloEssenceDenseItem), new ItemStack(yoloEssenceItem), new ItemStack(yoloEssenceItem), new ItemStack(yoloEssenceItem), new ItemStack(
+				yoloEssenceItem));
+		GameRegistry.addShapelessRecipe(new ItemStack(yoloDropDenseItem), new ItemStack(yoloDropItem), new ItemStack(yoloDropItem), new ItemStack(yoloDropItem), new ItemStack(yoloDropItem));
+		GameRegistry.addShapelessRecipe(new ItemStack(yoloDropItem), new ItemStack(yoloEssenceDenseItem), new ItemStack(yoloEssenceDenseItem), new ItemStack(yoloEssenceDenseItem),
+				new ItemStack(yoloEssenceDenseItem), new ItemStack(yoloEssenceDenseItem), new ItemStack(yoloEssenceDenseItem), new ItemStack(yoloEssenceDenseItem), new ItemStack(
+						yoloEssenceDenseItem));
+		GameRegistry.addShapelessRecipe(new ItemStack(yoloOrbItem), new ItemStack(yoloDropDenseItem), new ItemStack(yoloDropDenseItem), new ItemStack(yoloDropDenseItem), new ItemStack(
+				yoloDropDenseItem), new ItemStack(yoloDropDenseItem), new ItemStack(yoloDropDenseItem), new ItemStack(yoloDropDenseItem), new ItemStack(yoloDropDenseItem));
+		GameRegistry.addShapelessRecipe(new ItemStack(yoloDropDenseItem, 8), new ItemStack(yoloOrbItem));
+		GameRegistry.addShapelessRecipe(new ItemStack(yoloDropItem, 4), new ItemStack(yoloDropDenseItem));
+		GameRegistry.addShapelessRecipe(new ItemStack(yoloEssenceDenseItem, 8), new ItemStack(yoloDropItem));
+		GameRegistry.addShapelessRecipe(new ItemStack(yoloEssenceItem, 4), new ItemStack(yoloEssenceDenseItem));
+
+		// swag tools
+		GameRegistry.addRecipe(new ItemStack(swagSwordItem), "EDE", "ETE", "IOI", 'E', new ItemStack(swagEssenceItem), 'D', new ItemStack(swagDropItem), 'T',
+				new ItemStack(Item.swordDiamond), 'I', new ItemStack(Item.diamond), 'O', new ItemStack(swagOrbItem));
+		GameRegistry.addRecipe(new ItemStack(swagShovelItem), "EDE", "ETE", "IOI", 'E', new ItemStack(swagEssenceItem), 'D', new ItemStack(swagDropItem), 'T', new ItemStack(
+				Item.shovelDiamond), 'I', new ItemStack(Item.diamond), 'O', new ItemStack(swagOrbItem));
+		GameRegistry.addRecipe(new ItemStack(swagPickaxeItem), "EDE", "ETE", "IOI", 'E', new ItemStack(swagEssenceItem), 'D', new ItemStack(swagDropItem), 'T', new ItemStack(
+				Item.pickaxeDiamond), 'I', new ItemStack(Item.diamond), 'O', new ItemStack(swagOrbItem));
+		GameRegistry.addRecipe(new ItemStack(swagAxeItem), "EDE", "ETE", "IOI", 'E', new ItemStack(swagEssenceItem), 'D', new ItemStack(swagDropItem), 'T', new ItemStack(Item.axeDiamond),
+				'I', new ItemStack(Item.diamond), 'O', new ItemStack(swagOrbItem));
+		GameRegistry.addRecipe(new ItemStack(swagHoeItem), "EDE", "ETE", "IOI", 'E', new ItemStack(swagEssenceItem), 'D', new ItemStack(swagDropItem), 'T', new ItemStack(Item.hoeDiamond),
+				'I', new ItemStack(Item.diamond), 'O', new ItemStack(swagOrbItem));
+
+		// YOLO tools
+		GameRegistry.addRecipe(new ItemStack(yoloSwordItem), "EDE", "ETE", "IOI", 'E', new ItemStack(yoloEssenceItem), 'D', new ItemStack(yoloDropItem), 'T',
+				new ItemStack(Item.swordDiamond), 'I', new ItemStack(Item.diamond), 'O', new ItemStack(yoloOrbItem));
+		GameRegistry.addRecipe(new ItemStack(yoloShovelItem), "EDE", "ETE", "IOI", 'E', new ItemStack(yoloEssenceItem), 'D', new ItemStack(yoloDropItem), 'T', new ItemStack(
+				Item.shovelDiamond), 'I', new ItemStack(Item.diamond), 'O', new ItemStack(yoloOrbItem));
+		GameRegistry.addRecipe(new ItemStack(yoloPickaxeItem), "EDE", "ETE", "IOI", 'E', new ItemStack(yoloEssenceItem), 'D', new ItemStack(yoloDropItem), 'T', new ItemStack(
+				Item.pickaxeDiamond), 'I', new ItemStack(Item.diamond), 'O', new ItemStack(yoloOrbItem));
+		GameRegistry.addRecipe(new ItemStack(yoloAxeItem), "EDE", "ETE", "IOI", 'E', new ItemStack(yoloEssenceItem), 'D', new ItemStack(yoloDropItem), 'T', new ItemStack(Item.axeDiamond),
+				'I', new ItemStack(Item.diamond), 'O', new ItemStack(yoloOrbItem));
+		GameRegistry.addRecipe(new ItemStack(yoloHoeItem), "EDE", "ETE", "IOI", 'E', new ItemStack(yoloEssenceItem), 'D', new ItemStack(yoloDropItem), 'T', new ItemStack(Item.hoeDiamond),
+				'I', new ItemStack(Item.diamond), 'O', new ItemStack(yoloOrbItem));
+
+		// registration
+		GameRegistry.registerBlock(swagOreBlock, "swagOre");
+		GameRegistry.registerBlock(yoloOreBlock, "yoloOre");
+		GameRegistry.registerBlock(swagYoloConverterBlock, "swagYoloConverter");
+		GameRegistry.registerBlock(fuserBlock, "fuser");
+
+		GameRegistry.registerTileEntity(SwagYoloConverterTileEntity.class, "swagYoloConverter");
+		GameRegistry.registerTileEntity(FuserTileEntity.class, "fuser");
+
+		GameRegistry.registerWorldGenerator(swagModOreGenerator);
+
+		// launguage registry
+		LanguageRegistry.addName(swagOreBlock, "Swagite Ore");
+		LanguageRegistry.addName(yoloOreBlock, "YOLO Ore");
+
+		LanguageRegistry.addName(swagYoloConverterBlock, "YOLO-o-Matic");
+		LanguageRegistry.addName(fuserBlock, "Fuser");
+
+		LanguageRegistry.addName(swagEssenceItem, "Swag Essence");
+		LanguageRegistry.addName(swagDropItem, "Swag Drop");
+		LanguageRegistry.addName(swagOrbItem, "Swag Orb");
+
+		LanguageRegistry.addName(yoloEssenceItem, "Teir 1 YOLO");
+		LanguageRegistry.addName(yoloEssenceDenseItem, "Teir 1 YOLO X4");
+		LanguageRegistry.addName(yoloDropItem, "Teir 2 YOLO");
+		LanguageRegistry.addName(yoloDropDenseItem, "Teir 2 YOLO X4");
+		LanguageRegistry.addName(yoloOrbItem, "Teir 3 YOLO");
+
+		LanguageRegistry.addName(yoloSwagIngotItem, "SwagYOLO Alloy");
+
+		LanguageRegistry.addName(swagSwordItem, "Swag Sword");
+		LanguageRegistry.addName(swagShovelItem, "Swag Spade");
+		LanguageRegistry.addName(swagPickaxeItem, "Swag Pickaxe");
+		LanguageRegistry.addName(swagAxeItem, "Swag Axe");
+		LanguageRegistry.addName(swagHoeItem, "Swag Hoe");
+		LanguageRegistry.addName(yoloSwordItem, "YOLO Sword");
+		LanguageRegistry.addName(yoloShovelItem, "YOLO Spade");
+		LanguageRegistry.addName(yoloPickaxeItem, "YOLO Pickaxe");
+		LanguageRegistry.addName(yoloAxeItem, "YOLO Axe");
+		LanguageRegistry.addName(yoloHoeItem, "YOLO Hoe");
+
+		// misc
+		proxy.registerRenderers();
+		NetworkRegistry.instance().registerGuiHandler(this, guiHandler);
+	}
+
+	@PreInit
+	public void preInit(FMLPreInitializationEvent event) {
+
+	}
 }

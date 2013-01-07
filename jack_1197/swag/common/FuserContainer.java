@@ -6,23 +6,14 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class SwagYoloConverterContainer extends Container {
-	protected SwagYoloConverterTileEntity tileEntity;
+public class FuserContainer extends Container {
+	protected FuserTileEntity tileEntity;
 
-	public SwagYoloConverterContainer(SwagYoloConverterTileEntity tileEntity, InventoryPlayer playerInventory) {
-		// set up slots in right positions
+	public FuserContainer(FuserTileEntity tileEntity, InventoryPlayer playerInventory) {
 		this.tileEntity = tileEntity;
-		addSlotToContainer(new Slot(tileEntity, 0, 8, 15));
-		addSlotToContainer(new Slot(tileEntity, 1, 8, 37));
-		addSlotToContainer(new Slot(tileEntity, 2, 8, 59));
-		addSlotToContainer(new Slot(tileEntity, 3, 30, 59));
-		addSlotToContainer(new Slot(tileEntity, 4, 52, 59));
-		addSlotToContainer(new Slot(tileEntity, 5, 80, 59));
-		addSlotToContainer(new Slot(tileEntity, 6, 107, 59));
-		addSlotToContainer(new Slot(tileEntity, 7, 130, 59));
-		addSlotToContainer(new Slot(tileEntity, 8, 152, 59));
-		addSlotToContainer(new Slot(tileEntity, 9, 152, 37));
-		addSlotToContainer(new Slot(tileEntity, 10, 152, 15));
+		addSlotToContainer(new Slot(tileEntity, 0, 44, 19));
+		addSlotToContainer(new Slot(tileEntity, 1, 44, 55));
+		addSlotToContainer(new Slot(tileEntity, 2, 116, 37));
 		bindPlayerInventory(playerInventory);
 	}
 
@@ -39,8 +30,8 @@ public class SwagYoloConverterContainer extends Container {
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer player) {
-		return tileEntity.isUseableByPlayer(player);
+	public boolean canInteractWith(EntityPlayer var1) {
+		return tileEntity.isUseableByPlayer(var1);
 	}
 
 	public ItemStack putStackInSlot(int index) {

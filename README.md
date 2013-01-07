@@ -1,10 +1,26 @@
 minecraftswagmod
 ================
 
-swag Mod version 0.0.3 Pre-Alpha
+swag Mod version 0.1.0 Alpha
+
+Planned
+---------------
+- +swag and yolo can be infused into iron ingots, and used for physical things like blocks
+- +new ore system, with 8 distinct levels of ore, for both swag and yolo, different levels will yield different amounts of yolo and swag
+- +crafting more stuffs
+- +remove unnecessary classes in favor for inline definitions using core minecraft block and item classes 
 
 Version History
 ---------------
+
+0.1.0 Alpha
+
+- +added all swag and yolo tools, they are craftable too
+- +finished yolo-o-matic, uses the supernatural power of swag to extract natuaral yolo from items
+- +changed ore textures, going to remake
+- +WIP fuser, used to defuse or infuse swag and yolo into and from items, more efficient than crafting or smelting
+- +textured yolo-o-matic, and fuser, yolo-o-matic implements ISidedInventory, fuser coming soon
+- +redesigned yolo system, comes in three teirs, all exchangeable for others via crafting
 
 0.0.6 Pre-Alpha
 
