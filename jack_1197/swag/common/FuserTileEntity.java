@@ -23,8 +23,9 @@ public class FuserTileEntity extends TileEntity implements IInventory {
 	private static int updateInterval = 5;
 	private int update = 5;
 	public boolean processing = false;
+	private int currentlyProcessing = -1;
 
-	protected static ItemStack[][] fuseList = {
+	private static ItemStack[][] fuseList = {
 			{
 					new ItemStack(Block.stone),
 					new ItemStack(SwagMod.swagDropItem),
@@ -74,8 +75,58 @@ public class FuserTileEntity extends TileEntity implements IInventory {
 					new ItemStack(SwagMod.yoloOrbItem, 1),
 					new ItemStack(SwagMod.yoloHoeItem) }, };
 
-	public boolean canProcess() {
-		return true;
+	private boolean canProcess() {
+		
+		for (int i = 0; i < fuseList.length; i++) {
+			if (direction == 0) {
+				int acceptable = 0;
+				// need a few fors and ifs to account for items but it the other way etc
+				// could probably be done in one messy big if(a && b && c && ...)
+				for (int j = 0; i < 2; i++) {
+					for (int k = 0; k < 2; k++) {
+						if (getStackInSlot(k) != null && fuseList[i][j].getItem() == getStackInSlot(k).getItem() && fuseList[i][j].stackSize <= getStackInSlot(k).stackSize) {
+							acceptable++;
+							break;
+						}
+					}
+				}
+				if (acceptable == 2)// shouldnt be any other case that is acceptable
+				{
+					if (getStackInSlot(2) != null && getStackInSlot(2).getItem() == fuseList[i][2].getItem()
+							&& fuseList[i][2].stackSize + getStackInSlot(2).stackSize > fuseList[i][2].getMaxStackSize()) {
+						currentlyProcessing = -1;
+						return false;
+					} else if (getStackInSlot(2) != null && getStackInSlot(2).getItem() != fuseList[i][2].getItem()) {
+						currentlyProcessing = -1;
+						return false;
+					}
+					currentlyProcessing = i;
+					return true;
+				}
+			} else {
+				if (getStackInSlot(2) != null && getStackInSlot(2).getItem() == fuseList[i][2].getItem() && fuseList[i][2].stackSize <= getStackInSlot(2).stackSize) {
+					if (getStackInSlot(0) != null && getStackInSlot(0).getItem() == fuseList[i][0].getItem()
+							&& fuseList[i][0].stackSize + getStackInSlot(0).stackSize > fuseList[i][0].getMaxStackSize()) {
+						currentlyProcessing = -1;
+						return false;
+					} else if (!(getStackInSlot(0) == null || getStackInSlot(0).getItem() == fuseList[i][0].getItem() || getStackInSlot(0).stackSize == 0)) {
+						currentlyProcessing = -1;
+						return false;
+					}
+					if (getStackInSlot(1) != null && getStackInSlot(1).getItem() == fuseList[i][1].getItem() && fuseList[i][1].stackSize + getStackInSlot(1).stackSize > fuseList[i][1].getMaxStackSize()) {
+						currentlyProcessing = -1;
+						return false;
+					} else if (!(getStackInSlot(1) == null || getStackInSlot(1).getItem() == fuseList[i][1].getItem() || getStackInSlot(1).stackSize == 0)) {
+						currentlyProcessing = -1;
+						return false;
+					}
+					currentlyProcessing = i;
+					return true;
+				}
+			}
+		}
+		currentlyProcessing = -1;
+		return false;
 	}
 
 	@Override
@@ -133,7 +184,42 @@ public class FuserTileEntity extends TileEntity implements IInventory {
 	}
 
 	void onDone() {
+		if (currentlyProcessing != -1) {
+			if (direction == 0) {
+				if (fuseList[currentlyProcessing][0].stackSize <= getStackInSlot(0).stackSize) {
+					decrStackSize(0, fuseList[currentlyProcessing][0].stackSize);
+				} else {
+					inventory[0] = null;
+				}
+				if (fuseList[currentlyProcessing][1].stackSize <= getStackInSlot(1).stackSize) {
+					decrStackSize(1, fuseList[currentlyProcessing][1].stackSize);
+				} else {
+					inventory[1] = null;
+				}
 
+				if (getStackInSlot(2) != null && getStackInSlot(2).stackSize > 0) {
+					inventory[2].stackSize = inventory[2].stackSize + fuseList[currentlyProcessing][2].stackSize;
+				} else {
+					inventory[2] = fuseList[currentlyProcessing][2];
+				}
+			} else {
+				if (getStackInSlot(0) != null && getStackInSlot(0).stackSize > 0) {
+					inventory[0].stackSize = inventory[0].stackSize + fuseList[currentlyProcessing][0].stackSize;
+				} else {
+					inventory[0] = fuseList[currentlyProcessing][0];
+				}
+				if (getStackInSlot(1) != null && getStackInSlot(1).stackSize > 0) {
+					inventory[1].stackSize = inventory[1].stackSize + fuseList[currentlyProcessing][1].stackSize;
+				} else {
+					inventory[1] = fuseList[currentlyProcessing][1];
+				}
+				if (fuseList[currentlyProcessing][2].stackSize <= getStackInSlot(2).stackSize) {
+					decrStackSize(2, fuseList[currentlyProcessing][2].stackSize);
+				} else {
+					inventory[2] = null;
+				}
+			}
+		}
 	}
 
 	@Override
