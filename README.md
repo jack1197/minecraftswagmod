@@ -1,7 +1,7 @@
-minecraftswagmod
+Minecraft Swag Mod
 ================
 
-swag Mod version 0.1.0 Alpha
+Swag Mod version 0.1.0 Alpha
 
 Planned
 ---------------
