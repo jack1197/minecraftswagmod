@@ -62,6 +62,8 @@ public class SwagMod {
 	public static final Block fuserBlock = new FuserBlock(520, 7, Material.rock).setHardness(2.0f).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabDecorations)
 			.setBlockName("Fuser").setLightValue(0.9F);
 
+	public static final Item swagfoodItem = new CustomFood(6000, 1, true).setMaxStackSize(32).setIconCoord(0, 0).setItemName("SwagEssence").setCreativeTab(CreativeTabs.tabMaterials)
+			.setTextureFile(CommonProxy.ITEMS);
 	// Item Declarations
 	public static final Item swagEssenceItem = new Item(5000).setMaxStackSize(32).setIconCoord(0, 0).setItemName("SwagEssence").setCreativeTab(CreativeTabs.tabMaterials)
 			.setTextureFile(CommonProxy.ITEMS);
