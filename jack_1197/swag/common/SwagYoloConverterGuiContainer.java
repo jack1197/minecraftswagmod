@@ -26,6 +26,7 @@ public class SwagYoloConverterGuiContainer extends GuiContainer {
 		float calculatedFuel = tileEntity.fuel;
 		calculatedFuel = calculatedFuel / tileEntity.maxFuel * 28;
 		this.mc.renderEngine.bindTexture(gui);
+		this.mc.thePlayer.timeInPortal = 1.0F;
 		this.drawTexturedModalRect(x, y, 0, 0, 176, 178);
 		this.drawTexturedModalRect(x + 31, y + 18, 0, 179, (int) calculatedProgress, 44);
 		this.drawTexturedModalRect(x + 81, y + 62 - (int) calculatedFuel, 114, 179 + 28 - (int) calculatedFuel, 14, (int) calculatedFuel);
