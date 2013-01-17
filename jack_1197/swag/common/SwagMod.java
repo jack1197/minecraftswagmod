@@ -61,8 +61,9 @@ public class SwagMod {
 
 	public static Block swagBlock;
 	public static Block yoloBlock;
-	
+
 	public static Item swagPotionItem;
+
 	// Item Declarations
 	public static Item swagEssenceItem;
 	public static Item swagDropItem;
@@ -192,7 +193,9 @@ public class SwagMod {
 		swagBlock = new Block(config.getBlock("swagBlock", 531).getInt(), 8*16, Material.rock).setHardness(2.0f).setStepSound(Block.soundStoneFootstep).setLightValue(0.4f)
 				.setCreativeTab(CreativeTabs.tabBlock).setBlockName("SwagBlock").setTextureFile(CommonProxy.BLOCKS);
 		
+
 		swagPotionItem = ((CustomFood) new CustomFood(config.getItem("swagPotionItem", 5200).getInt(), 0, true).setMaxStackSize(1).setIconCoord(3, 0).setItemName("SwagPotion").setCreativeTab(CreativeTabs.tabBrewing)
+
 				.setTextureFile(CommonProxy.ITEMS)).setHasNetherFX(true);
 		((ItemFood)swagPotionItem).setAlwaysEdible();
 		// Item Declarations
@@ -265,11 +268,10 @@ public class SwagMod {
 		GameRegistry.addRecipe(new ItemStack(yoloBlock), "III", "III", "III", 'I', new ItemStack(yoloIngotItem));
 		GameRegistry.addShapelessRecipe(new ItemStack(swagIngotItem, 9), new ItemStack(swagBlock));
 		GameRegistry.addShapelessRecipe(new ItemStack(yoloIngotItem, 9), new ItemStack(yoloBlock));
-		
 		//brewing
 		
 		GameRegistry.addShapelessRecipe(new ItemStack(swagPotionItem, 4), new ItemStack(Item.glassBottle), new ItemStack(swagDropItem), new ItemStack(swagDropItem));
-		
+
 		//depreceated crafting recipies
 		if(config.get(Configuration.CATEGORY_GENERAL, "allowToolCrafting", false).getBoolean(false))
 		{
