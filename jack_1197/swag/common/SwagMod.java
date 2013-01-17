@@ -182,44 +182,44 @@ public class SwagMod {
 		fuserBlock = new FuserBlock(config.getBlock("fuserBlock", 520).getInt(), 7, Material.rock).setHardness(2.0f).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabDecorations)
 				.setBlockName("Fuser").setLightValue(0.9F);
 
-		swagfoodItem = ((CustomFood)new CustomFood(config.getBlock("swagFoodItem", 5200).getInt(), 1, true).setMaxStackSize(32).setIconCoord(0, 0).setItemName("SwagFood").setCreativeTab(CreativeTabs.tabMaterials)
+		swagfoodItem = ((CustomFood)new CustomFood(config.getItem("swagFoodItem", 5200).getInt(), 1, true).setMaxStackSize(32).setIconCoord(0, 0).setItemName("SwagFood").setCreativeTab(CreativeTabs.tabMaterials)
 				.setTextureFile(CommonProxy.ITEMS)).setHasNetherFX(true);
 		// Item Declarations
-		swagEssenceItem = new Item(config.getBlock("swagEssenceItem", 5000).getInt()).setMaxStackSize(32).setIconCoord(0, 0).setItemName("SwagEssence").setCreativeTab(CreativeTabs.tabMaterials)
+		swagEssenceItem = new Item(config.getItem("swagEssenceItem", 5000).getInt()).setMaxStackSize(32).setIconCoord(0, 0).setItemName("SwagEssence").setCreativeTab(CreativeTabs.tabMaterials)
 				.setTextureFile(CommonProxy.ITEMS);
-		swagDropItem = new Item(config.getBlock("swagDropItem", 5001).getInt()).setMaxStackSize(32).setIconCoord(0, 1).setItemName("SwagDrop").setCreativeTab(CreativeTabs.tabMaterials)
-				.setTextureFile(CommonProxy.ITEMS);
-
-		swagOrbItem = new Item(config.getBlock("swagOrbItem", 5002).getInt()).setMaxStackSize(16).setIconCoord(0, 2).setItemName("SwagOrb").setCreativeTab(CreativeTabs.tabMaterials)
-				.setTextureFile(CommonProxy.ITEMS);
-		yoloEssenceItem = new Item(config.getBlock("yoloEssenceItem", 5010).getInt()).setMaxStackSize(32).setIconCoord(1, 0).setItemName("YoloEssence").setCreativeTab(CreativeTabs.tabMaterials)
-				.setTextureFile(CommonProxy.ITEMS);
-		yoloEssenceDenseItem = new Item(config.getBlock("yoloEssenceDenseItem", 5011).getInt()).setMaxStackSize(16).setIconCoord(1, 3).setItemName("YoloEssenceDense").setCreativeTab(CreativeTabs.tabMaterials)
-				.setTextureFile(CommonProxy.ITEMS);
-		yoloDropItem = new Item(config.getBlock("yoloDropItem", 5012).getInt()).setMaxStackSize(32).setIconCoord(1, 1).setItemName("YoloDrop").setCreativeTab(CreativeTabs.tabMaterials)
-				.setTextureFile(CommonProxy.ITEMS);
-		yoloDropDenseItem = new Item(config.getBlock("yoloDropDenseItem", 5013).getInt()).setMaxStackSize(16).setIconCoord(1, 4).setItemName("YoloDropDense").setCreativeTab(CreativeTabs.tabMaterials)
+		swagDropItem = new Item(config.getItem("swagDropItem", 5001).getInt()).setMaxStackSize(32).setIconCoord(0, 1).setItemName("SwagDrop").setCreativeTab(CreativeTabs.tabMaterials)
 				.setTextureFile(CommonProxy.ITEMS);
 
-		yoloOrbItem = new Item(config.getBlock("yoloOrbItem", 5014).getInt()).setMaxStackSize(32).setIconCoord(1, 2).setItemName("YoloOrb").setCreativeTab(CreativeTabs.tabMaterials)
+		swagOrbItem = new Item(config.getItem("swagOrbItem", 5002).getInt()).setMaxStackSize(16).setIconCoord(0, 2).setItemName("SwagOrb").setCreativeTab(CreativeTabs.tabMaterials)
+				.setTextureFile(CommonProxy.ITEMS);
+		yoloEssenceItem = new Item(config.getItem("yoloEssenceItem", 5010).getInt()).setMaxStackSize(32).setIconCoord(1, 0).setItemName("YoloEssence").setCreativeTab(CreativeTabs.tabMaterials)
+				.setTextureFile(CommonProxy.ITEMS);
+		yoloEssenceDenseItem = new Item(config.getItem("yoloEssenceDenseItem", 5011).getInt()).setMaxStackSize(16).setIconCoord(1, 3).setItemName("YoloEssenceDense").setCreativeTab(CreativeTabs.tabMaterials)
+				.setTextureFile(CommonProxy.ITEMS);
+		yoloDropItem = new Item(config.getItem("yoloDropItem", 5012).getInt()).setMaxStackSize(32).setIconCoord(1, 1).setItemName("YoloDrop").setCreativeTab(CreativeTabs.tabMaterials)
+				.setTextureFile(CommonProxy.ITEMS);
+		yoloDropDenseItem = new Item(config.getItem("yoloDropDenseItem", 5013).getInt()).setMaxStackSize(16).setIconCoord(1, 4).setItemName("YoloDropDense").setCreativeTab(CreativeTabs.tabMaterials)
 				.setTextureFile(CommonProxy.ITEMS);
 
-		yoloSwagIngotItem = new Item(config.getBlock("yoloSwagIngotItem", 5020).getInt()).setIconCoord(2, 0).setItemName("YoloSwagIngot").setCreativeTab(CreativeTabs.tabMaterials).setTextureFile(CommonProxy.ITEMS);
+		yoloOrbItem = new Item(config.getItem("yoloOrbItem", 5014).getInt()).setMaxStackSize(32).setIconCoord(1, 2).setItemName("YoloOrb").setCreativeTab(CreativeTabs.tabMaterials)
+				.setTextureFile(CommonProxy.ITEMS);
+
+		yoloSwagIngotItem = new Item(config.getItem("yoloSwagIngotItem", 5020).getInt()).setIconCoord(2, 0).setItemName("YoloSwagIngot").setCreativeTab(CreativeTabs.tabMaterials).setTextureFile(CommonProxy.ITEMS);
 
 		// Tool declarations
-		swagSwordItem = new ItemSword(config.getBlock("swagSwordItem", 5100).getInt(), swagToolMaterial).setIconCoord(0, 5).setItemName("SwagSword").setCreativeTab(CreativeTabs.tabCombat).setTextureFile(CommonProxy.ITEMS);
-		swagShovelItem = new ItemSpade(config.getBlock("swagShovelItem", 5101).getInt(), swagToolMaterial).setIconCoord(0, 6).setItemName("SwagSpade").setCreativeTab(CreativeTabs.tabTools).setTextureFile(CommonProxy.ITEMS);
-		swagPickaxeItem = new ItemPickaxe(config.getBlock("swagPickaxeItem", 5102).getInt(), swagToolMaterial).setIconCoord(0, 7).setItemName("SwagPickaxe").setCreativeTab(CreativeTabs.tabTools).setTextureFile(CommonProxy.ITEMS);
-		swagAxeItem = new ItemAxe(config.getBlock("swagAxeItem", 5103).getInt(), swagToolMaterial).setIconCoord(0, 8).setItemName("SwagAxe").setCreativeTab(CreativeTabs.tabTools).setTextureFile(CommonProxy.ITEMS);
-		swagHoeItem = new ItemHoe(config.getBlock("swagHoeItem", 5104).getInt(), swagToolMaterial).setIconCoord(0, 9).setItemName("SwagHoe").setCreativeTab(CreativeTabs.tabTools).setTextureFile(CommonProxy.ITEMS);// I have absolutely no
+		swagSwordItem = new ItemSword(config.getItem("swagSwordItem", 5100).getInt(), swagToolMaterial).setIconCoord(0, 5).setItemName("SwagSword").setCreativeTab(CreativeTabs.tabCombat).setTextureFile(CommonProxy.ITEMS);
+		swagShovelItem = new ItemSpade(config.getItem("swagShovelItem", 5101).getInt(), swagToolMaterial).setIconCoord(0, 6).setItemName("SwagSpade").setCreativeTab(CreativeTabs.tabTools).setTextureFile(CommonProxy.ITEMS);
+		swagPickaxeItem = new ItemPickaxe(config.getItem("swagPickaxeItem", 5102).getInt(), swagToolMaterial).setIconCoord(0, 7).setItemName("SwagPickaxe").setCreativeTab(CreativeTabs.tabTools).setTextureFile(CommonProxy.ITEMS);
+		swagAxeItem = new ItemAxe(config.getItem("swagAxeItem", 5103).getInt(), swagToolMaterial).setIconCoord(0, 8).setItemName("SwagAxe").setCreativeTab(CreativeTabs.tabTools).setTextureFile(CommonProxy.ITEMS);
+		swagHoeItem = new ItemHoe(config.getItem("swagHoeItem", 5104).getInt(), swagToolMaterial).setIconCoord(0, 9).setItemName("SwagHoe").setCreativeTab(CreativeTabs.tabTools).setTextureFile(CommonProxy.ITEMS);// I have absolutely no
 																																										// idea
 																																										// why either...
 
-		yoloSwordItem = new ItemSword(config.getBlock("yoloSwordItem", 5110).getInt(), yoloToolMaterial).setIconCoord(1, 5).setItemName("YoloSword").setCreativeTab(CreativeTabs.tabCombat).setTextureFile(CommonProxy.ITEMS);
-		yoloShovelItem = new ItemSpade(config.getBlock("yoloShovelItem", 5111).getInt(), yoloToolMaterial).setIconCoord(1, 6).setItemName("YoloSpade").setCreativeTab(CreativeTabs.tabTools).setTextureFile(CommonProxy.ITEMS);
-		yoloPickaxeItem = new ItemPickaxe(config.getBlock("yoloPickaxeItem", 5112).getInt(), yoloToolMaterial).setIconCoord(1, 7).setItemName("YoloPickaxe").setCreativeTab(CreativeTabs.tabTools).setTextureFile(CommonProxy.ITEMS);
-		yoloAxeItem = new ItemAxe(config.getBlock("yoloAxeItem", 5113).getInt(), yoloToolMaterial).setIconCoord(1, 8).setItemName("YoloAxe").setCreativeTab(CreativeTabs.tabTools).setTextureFile(CommonProxy.ITEMS);
-		yoloHoeItem = new ItemHoe(config.getBlock("yoloHoeItem", 5114).getInt(), yoloToolMaterial).setIconCoord(1, 9).setItemName("YoloHoe").setCreativeTab(CreativeTabs.tabTools).setTextureFile(CommonProxy.ITEMS);// oh well, YOLO!!
+		yoloSwordItem = new ItemSword(config.getItem("yoloSwordItem", 5110).getInt(), yoloToolMaterial).setIconCoord(1, 5).setItemName("YoloSword").setCreativeTab(CreativeTabs.tabCombat).setTextureFile(CommonProxy.ITEMS);
+		yoloShovelItem = new ItemSpade(config.getItem("yoloShovelItem", 5111).getInt(), yoloToolMaterial).setIconCoord(1, 6).setItemName("YoloSpade").setCreativeTab(CreativeTabs.tabTools).setTextureFile(CommonProxy.ITEMS);
+		yoloPickaxeItem = new ItemPickaxe(config.getItem("yoloPickaxeItem", 5112).getInt(), yoloToolMaterial).setIconCoord(1, 7).setItemName("YoloPickaxe").setCreativeTab(CreativeTabs.tabTools).setTextureFile(CommonProxy.ITEMS);
+		yoloAxeItem = new ItemAxe(config.getItem("yoloAxeItem", 5113).getInt(), yoloToolMaterial).setIconCoord(1, 8).setItemName("YoloAxe").setCreativeTab(CreativeTabs.tabTools).setTextureFile(CommonProxy.ITEMS);
+		yoloHoeItem = new ItemHoe(config.getItem("yoloHoeItem", 5114).getInt(), yoloToolMaterial).setIconCoord(1, 9).setItemName("YoloHoe").setCreativeTab(CreativeTabs.tabTools).setTextureFile(CommonProxy.ITEMS);// oh well, YOLO!!
 
 		
 		// smelting
