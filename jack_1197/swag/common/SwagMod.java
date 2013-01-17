@@ -44,10 +44,9 @@ public class SwagMod {
 	}
 
 	// Tool Materials
-	static EnumToolMaterial swagToolMaterial = EnumHelper.addToolMaterial("swag", 3, 3000, 12.5F, 16, 15);
-	static EnumToolMaterial yoloToolMaterial = EnumHelper.addToolMaterial("yolo", 3, 1000, 18.0F, 22, 30);
-
-	static EnumToolMaterial swagYoloToolMaterial = EnumHelper.addToolMaterial("swagYolo", 3, 2300, 15.0F, 19, 30);
+	static EnumToolMaterial swagToolMaterial;
+	static EnumToolMaterial yoloToolMaterial;
+	static EnumToolMaterial swagYoloToolMaterial;
 
 	// Block declarations
 	public static Block swagOreBlock;
@@ -318,7 +317,7 @@ public class SwagMod {
 	}
 
 	@PostInit
-	public void postInit(FMLPreInitializationEvent event) {
+	public void postInit(FMLPostInitializationEvent event) {
         config.save();
 	}
 }
