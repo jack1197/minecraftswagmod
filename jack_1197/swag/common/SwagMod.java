@@ -7,8 +7,10 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemAxe;
+import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemPickaxe;
+import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
@@ -57,17 +59,22 @@ public class SwagMod {
 
 	public static Block fuserBlock;
 
-	public static Item swagfoodItem;
+	public static Block swagBlock;
+	public static Block yoloBlock;
+	
+	public static Item swagPotionItem;
 	// Item Declarations
 	public static Item swagEssenceItem;
 	public static Item swagDropItem;
 	public static Item swagOrbItem;
+	public static Item swagIngotItem;
 	
 	public static Item yoloEssenceItem;
 	public static Item yoloEssenceDenseItem;
 	public static Item yoloDropItem;
 	public static Item yoloDropDenseItem;
 	public static Item yoloOrbItem;
+	public static Item yoloIngotItem;
 
 	public static Item yoloSwagIngotItem;
 
@@ -180,8 +187,14 @@ public class SwagMod {
 		fuserBlock = new FuserBlock(config.getBlock("fuserBlock", 520).getInt(), 7, Material.rock).setHardness(2.0f).setStepSound(Block.soundStoneFootstep).setCreativeTab(CreativeTabs.tabDecorations)
 				.setBlockName("Fuser").setLightValue(0.9F);
 
-		swagfoodItem = ((CustomFood)new CustomFood(config.getItem("swagFoodItem", 5200).getInt(), 1, true).setMaxStackSize(32).setIconCoord(0, 0).setItemName("SwagFood").setCreativeTab(CreativeTabs.tabMaterials)
+		yoloBlock = new Block(config.getBlock("yoloBlock", 530).getInt(), 8*16+1, Material.rock).setHardness(2.0f).setStepSound(Block.soundStoneFootstep).setLightValue(0.4f)
+				.setCreativeTab(CreativeTabs.tabBlock).setBlockName("YoloBlock").setTextureFile(CommonProxy.BLOCKS);
+		swagBlock = new Block(config.getBlock("swagBlock", 531).getInt(), 8*16, Material.rock).setHardness(2.0f).setStepSound(Block.soundStoneFootstep).setLightValue(0.4f)
+				.setCreativeTab(CreativeTabs.tabBlock).setBlockName("SwagBlock").setTextureFile(CommonProxy.BLOCKS);
+		
+		swagPotionItem = ((CustomFood) new CustomFood(config.getItem("swagPotionItem", 5200).getInt(), 0, true).setMaxStackSize(1).setIconCoord(3, 0).setItemName("SwagPotion").setCreativeTab(CreativeTabs.tabBrewing)
 				.setTextureFile(CommonProxy.ITEMS)).setHasNetherFX(true);
+		((ItemFood)swagPotionItem).setAlwaysEdible();
 		// Item Declarations
 		swagEssenceItem = new Item(config.getItem("swagEssenceItem", 5000).getInt()).setMaxStackSize(32).setIconCoord(0, 0).setItemName("SwagEssence").setCreativeTab(CreativeTabs.tabMaterials)
 				.setTextureFile(CommonProxy.ITEMS);
@@ -198,11 +211,13 @@ public class SwagMod {
 				.setTextureFile(CommonProxy.ITEMS);
 		yoloDropDenseItem = new Item(config.getItem("yoloDropDenseItem", 5013).getInt()).setMaxStackSize(16).setIconCoord(1, 4).setItemName("YoloDropDense").setCreativeTab(CreativeTabs.tabMaterials)
 				.setTextureFile(CommonProxy.ITEMS);
-
 		yoloOrbItem = new Item(config.getItem("yoloOrbItem", 5014).getInt()).setMaxStackSize(32).setIconCoord(1, 2).setItemName("YoloOrb").setCreativeTab(CreativeTabs.tabMaterials)
 				.setTextureFile(CommonProxy.ITEMS);
+		
+		yoloIngotItem = new Item(config.getItem("yoloIngotItem", 5020).getInt()).setIconCoord(1, 10).setItemName("YoloIngot").setCreativeTab(CreativeTabs.tabMaterials).setTextureFile(CommonProxy.ITEMS);
+		swagIngotItem = new Item(config.getItem("swagIngotItem", 5021).getInt()).setIconCoord(0, 10).setItemName("SwagIngot").setCreativeTab(CreativeTabs.tabMaterials).setTextureFile(CommonProxy.ITEMS);
 
-		yoloSwagIngotItem = new Item(config.getItem("yoloSwagIngotItem", 5020).getInt()).setIconCoord(2, 0).setItemName("YoloSwagIngot").setCreativeTab(CreativeTabs.tabMaterials).setTextureFile(CommonProxy.ITEMS);
+		yoloSwagIngotItem = new Item(config.getItem("yoloSwagIngotItem", 5022).getInt()).setIconCoord(2, 0).setItemName("YoloSwagIngot").setCreativeTab(CreativeTabs.tabMaterials).setTextureFile(CommonProxy.ITEMS);
 
 		// Tool declarations
 		swagSwordItem = new ItemSword(config.getItem("swagSwordItem", 5100).getInt(), swagToolMaterial).setIconCoord(0, 5).setItemName("SwagSword").setCreativeTab(CreativeTabs.tabCombat).setTextureFile(CommonProxy.ITEMS);
@@ -228,6 +243,7 @@ public class SwagMod {
 		// swag crafting
 		GameRegistry.addRecipe(new ItemStack(swagDropItem), " E ", "EEE", "EEE", 'E', new ItemStack(swagEssenceItem));
 		GameRegistry.addRecipe(new ItemStack(swagOrbItem), "GDG", "DID", "GDG", 'G', new ItemStack(Block.glass), 'D', new ItemStack(swagDropItem), 'I', new ItemStack(Item.diamond));
+	
 
 		// yolo crafting
 		GameRegistry.addShapelessRecipe(new ItemStack(yoloEssenceDenseItem), new ItemStack(yoloEssenceItem), new ItemStack(yoloEssenceItem), new ItemStack(yoloEssenceItem), new ItemStack(
@@ -242,7 +258,19 @@ public class SwagMod {
 		GameRegistry.addShapelessRecipe(new ItemStack(yoloDropItem, 4), new ItemStack(yoloDropDenseItem));
 		GameRegistry.addShapelessRecipe(new ItemStack(yoloEssenceDenseItem, 8), new ItemStack(yoloDropItem));
 		GameRegistry.addShapelessRecipe(new ItemStack(yoloEssenceItem, 4), new ItemStack(yoloEssenceDenseItem));
-//depreceated crafting recipies
+		
+		//block crafting
+		
+		GameRegistry.addRecipe(new ItemStack(swagBlock), "III", "III", "III", 'I', new ItemStack(swagIngotItem));
+		GameRegistry.addRecipe(new ItemStack(yoloBlock), "III", "III", "III", 'I', new ItemStack(yoloIngotItem));
+		GameRegistry.addShapelessRecipe(new ItemStack(swagIngotItem, 9), new ItemStack(swagBlock));
+		GameRegistry.addShapelessRecipe(new ItemStack(yoloIngotItem, 9), new ItemStack(yoloBlock));
+		
+		//brewing
+		
+		GameRegistry.addShapelessRecipe(new ItemStack(swagPotionItem, 4), new ItemStack(Item.glassBottle), new ItemStack(swagDropItem), new ItemStack(swagDropItem));
+		
+		//depreceated crafting recipies
 		if(config.get(Configuration.CATEGORY_GENERAL, "allowToolCrafting", false).getBoolean(false))
 		{
 		// swag tools
@@ -272,6 +300,8 @@ public class SwagMod {
 		// registration
 		GameRegistry.registerBlock(swagOreBlock, "swagOre");
 		GameRegistry.registerBlock(yoloOreBlock, "yoloOre");
+		GameRegistry.registerBlock(swagBlock, "swag");
+		GameRegistry.registerBlock(yoloBlock, "yolo");
 		GameRegistry.registerBlock(swagYoloConverterBlock, "swagYoloConverter");
 		GameRegistry.registerBlock(fuserBlock, "fuser");
 
@@ -287,6 +317,9 @@ public class SwagMod {
 		LanguageRegistry.addName(swagYoloConverterBlock, "YOLO-o-Matic");
 		LanguageRegistry.addName(fuserBlock, "Fuser");
 
+		LanguageRegistry.addName(swagBlock, "Swag Infused Block");
+		LanguageRegistry.addName(yoloBlock, "YOLO Infused Block");
+
 		LanguageRegistry.addName(swagEssenceItem, "Swag Essence");
 		LanguageRegistry.addName(swagDropItem, "Swag Drop");
 		LanguageRegistry.addName(swagOrbItem, "Swag Orb");
@@ -297,7 +330,9 @@ public class SwagMod {
 		LanguageRegistry.addName(yoloDropDenseItem, "Teir 2 YOLO X4");
 		LanguageRegistry.addName(yoloOrbItem, "Teir 3 YOLO");
 
-		LanguageRegistry.addName(yoloSwagIngotItem, "SwagYOLO Alloy");
+		LanguageRegistry.addName(swagIngotItem, "Swag Infused Ingot");
+		LanguageRegistry.addName(yoloIngotItem, "YOLO Infused Ingot");
+		LanguageRegistry.addName(yoloSwagIngotItem, "Swag-YOLO Alloy");
 
 		LanguageRegistry.addName(swagSwordItem, "Swag Sword");
 		LanguageRegistry.addName(swagShovelItem, "Swag Spade");
@@ -309,6 +344,8 @@ public class SwagMod {
 		LanguageRegistry.addName(yoloPickaxeItem, "YOLO Pickaxe");
 		LanguageRegistry.addName(yoloAxeItem, "YOLO Axe");
 		LanguageRegistry.addName(yoloHoeItem, "YOLO Hoe");
+
+		LanguageRegistry.addName(swagPotionItem, "Swag Potion");
 
 		// misc
 		proxy.registerRenderers();

@@ -5,12 +5,15 @@ Swag Mod version 0.1.0 Alpha
 
 Planned
 ---------------
-- +swag and yolo can be infused into iron ingots, and used for physical things like blocks
 - +new ore system, with 8 distinct levels of ore, for both swag and yolo, different levels will yield different amounts of yolo and swag
-- +crafting more stuffs
 
 Version History
 ---------------
+0.1.1 Alpha 
+
+- +added fuser
+- +added swag/yolo ingots and block
+- +added swag(nausea) potion
 
 0.1.0 Alpha
 

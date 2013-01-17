@@ -73,24 +73,31 @@ public class FuserTileEntity extends TileEntity implements IInventory {
 			{
 					new ItemStack(Item.hoeGold),
 					new ItemStack(SwagMod.yoloOrbItem, 1),
-					new ItemStack(SwagMod.yoloHoeItem) }, };
+					new ItemStack(SwagMod.yoloHoeItem) },
+			{
+					new ItemStack(SwagMod.swagOrbItem),
+					new ItemStack(Item.ingotIron, 1),
+					new ItemStack(SwagMod.swagIngotItem) },
+			{
+					new ItemStack(SwagMod.yoloDropItem),
+					new ItemStack(Item.ingotIron, 1),
+					new ItemStack(SwagMod.yoloIngotItem) }, };
 
 	private boolean canProcess() {
-		
+
 		for (int i = 0; i < fuseList.length; i++) {
 			if (direction == 0) {
 				int acceptable = 0;
 				// need a few fors and ifs to account for items but it the other way etc
 				// could probably be done in one messy big if(a && b && c && ...)
-				//EDIT: no longer works both ways untill i can be bothered fixing an isues, patched for now
+				// EDIT: no longer works both ways untill i can be bothered fixing an isues, patched for now
 				for (int j = 0; j < 2; j++) {
 					for (int k = 0; k < 2; k++) {
 						if (getStackInSlot(k) != null && fuseList[i][j].getItem() == getStackInSlot(k).getItem() && fuseList[i][j].stackSize <= getStackInSlot(k).stackSize) {
-							//ugly patch fix
-							if(k == j)
-							{
-							acceptable++;
-							break;
+							// ugly patch fix
+							if (k == j) {
+								acceptable++;
+								break;
 							}
 						}
 					}
@@ -118,7 +125,8 @@ public class FuserTileEntity extends TileEntity implements IInventory {
 						currentlyProcessing = -1;
 						return false;
 					}
-					if (getStackInSlot(1) != null && getStackInSlot(1).getItem() == fuseList[i][1].getItem() && fuseList[i][1].stackSize + getStackInSlot(1).stackSize > fuseList[i][1].getMaxStackSize()) {
+					if (getStackInSlot(1) != null && getStackInSlot(1).getItem() == fuseList[i][1].getItem()
+							&& fuseList[i][1].stackSize + getStackInSlot(1).stackSize > fuseList[i][1].getMaxStackSize()) {
 						currentlyProcessing = -1;
 						return false;
 					} else if (!(getStackInSlot(1) == null || getStackInSlot(1).getItem() == fuseList[i][1].getItem() || getStackInSlot(1).stackSize == 0)) {
@@ -286,8 +294,8 @@ public class FuserTileEntity extends TileEntity implements IInventory {
 				progress = 0;
 				onDone();
 			}
-		}else
-		{ progress = 0;
+		} else {
+			progress = 0;
 		}
 	}
 
