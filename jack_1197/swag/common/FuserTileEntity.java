@@ -17,7 +17,7 @@ import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class FuserTileEntity extends TileEntity implements IInventory {
 	private ItemStack[] inventory = new ItemStack[3];
-	public int progress = 300;
+	public int progress = 0;
 	public static int maxProgress = 600;
 	public int direction = 0;// 0 = infuse, 1 = defuse
 	private static int updateInterval = 5;
@@ -35,43 +35,43 @@ public class FuserTileEntity extends TileEntity implements IInventory {
 					new ItemStack(SwagMod.yoloEssenceDenseItem),
 					new ItemStack(SwagMod.yoloOreBlock) },
 			{
-					new ItemStack(Item.pickaxeDiamond),
+					new ItemStack(Item.pickaxeGold),
 					new ItemStack(SwagMod.swagDropItem, 3),
 					new ItemStack(SwagMod.swagPickaxeItem) },
 			{
-					new ItemStack(Item.axeDiamond),
+					new ItemStack(Item.axeGold),
 					new ItemStack(SwagMod.swagDropItem, 3),
 					new ItemStack(SwagMod.swagAxeItem) },
 			{
-					new ItemStack(Item.shovelDiamond),
+					new ItemStack(Item.shovelGold),
 					new ItemStack(SwagMod.swagDropItem, 3),
 					new ItemStack(SwagMod.swagShovelItem) },
 			{
-					new ItemStack(Item.swordDiamond),
+					new ItemStack(Item.swordGold),
 					new ItemStack(SwagMod.swagDropItem, 3),
 					new ItemStack(SwagMod.swagSwordItem) },
 			{
-					new ItemStack(Item.hoeDiamond),
+					new ItemStack(Item.hoeGold),
 					new ItemStack(SwagMod.swagDropItem, 3),
 					new ItemStack(SwagMod.swagHoeItem) },
 			{
-					new ItemStack(Item.pickaxeDiamond),
+					new ItemStack(Item.pickaxeGold),
 					new ItemStack(SwagMod.yoloOrbItem, 1),
 					new ItemStack(SwagMod.yoloPickaxeItem) },
 			{
-					new ItemStack(Item.axeDiamond),
+					new ItemStack(Item.axeGold),
 					new ItemStack(SwagMod.yoloOrbItem, 1),
 					new ItemStack(SwagMod.yoloAxeItem) },
 			{
-					new ItemStack(Item.shovelDiamond),
+					new ItemStack(Item.shovelGold),
 					new ItemStack(SwagMod.yoloOrbItem, 1),
 					new ItemStack(SwagMod.yoloShovelItem) },
 			{
-					new ItemStack(Item.swordDiamond),
+					new ItemStack(Item.swordGold),
 					new ItemStack(SwagMod.yoloOrbItem, 1),
 					new ItemStack(SwagMod.yoloSwordItem) },
 			{
-					new ItemStack(Item.hoeDiamond),
+					new ItemStack(Item.hoeGold),
 					new ItemStack(SwagMod.yoloOrbItem, 1),
 					new ItemStack(SwagMod.yoloHoeItem) }, };
 
@@ -82,11 +82,16 @@ public class FuserTileEntity extends TileEntity implements IInventory {
 				int acceptable = 0;
 				// need a few fors and ifs to account for items but it the other way etc
 				// could probably be done in one messy big if(a && b && c && ...)
-				for (int j = 0; i < 2; i++) {
+				//EDIT: no longer works both ways untill i can be bothered fixing an isues, patched for now
+				for (int j = 0; j < 2; j++) {
 					for (int k = 0; k < 2; k++) {
 						if (getStackInSlot(k) != null && fuseList[i][j].getItem() == getStackInSlot(k).getItem() && fuseList[i][j].stackSize <= getStackInSlot(k).stackSize) {
+							//ugly patch fix
+							if(k == j)
+							{
 							acceptable++;
 							break;
+							}
 						}
 					}
 				}
@@ -281,6 +286,8 @@ public class FuserTileEntity extends TileEntity implements IInventory {
 				progress = 0;
 				onDone();
 			}
+		}else
+		{ progress = 0;
 		}
 	}
 
