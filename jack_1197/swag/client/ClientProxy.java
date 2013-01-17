@@ -9,9 +9,7 @@ public class ClientProxy extends CommonProxy {
 		// preload textures
 		MinecraftForgeClient.preloadTexture(BLOCKS);
 		MinecraftForgeClient.preloadTexture(ITEMS);
-		MinecraftForgeClient
-				.preloadTexture("/jack_1197/swag/common/textures/SwagYoloConverter.png");
-		MinecraftForgeClient
-				.preloadTexture("/jack_1197/swag/common/textures/Fuser.png");
+		MinecraftForgeClient.preloadTexture("/jack_1197/swag/common/textures/SwagYoloConverter.png");
+		MinecraftForgeClient.preloadTexture("/jack_1197/swag/common/textures/Fuser.png");
 	}
 }

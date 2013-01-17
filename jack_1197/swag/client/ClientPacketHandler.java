@@ -17,8 +17,7 @@ import cpw.mods.fml.common.network.Player;
 public class ClientPacketHandler implements IPacketHandler {
 
 	@Override
-	public void onPacketData(INetworkManager manager,
-			Packet250CustomPayload payload, Player player) {
+	public void onPacketData(INetworkManager manager, Packet250CustomPayload payload, Player player) {
 		// if packet does belong to mod, redirect to proper function
 		if (payload.channel == "SwagMod") {
 			swagModPacket(payload, (EntityPlayer) player);
@@ -26,10 +25,8 @@ public class ClientPacketHandler implements IPacketHandler {
 		return;
 	}
 
-	private void swagModPacket(Packet250CustomPayload packet,
-			EntityPlayer player) {
-		DataInputStream data = new DataInputStream(new ByteArrayInputStream(
-				packet.data));
+	private void swagModPacket(Packet250CustomPayload packet, EntityPlayer player) {
+		DataInputStream data = new DataInputStream(new ByteArrayInputStream(packet.data));
 		int type;
 		try {
 			// get the tpye of data expected for packet
@@ -40,8 +37,7 @@ public class ClientPacketHandler implements IPacketHandler {
 				int x = data.readInt();
 				int y = data.readInt();
 				int z = data.readInt();
-				TileEntity tileEntity = player.worldObj.getBlockTileEntity(x,
-						y, z);
+				TileEntity tileEntity = player.worldObj.getBlockTileEntity(x, y, z);
 				if (tileEntity != null) {
 					if (tileEntity instanceof SwagYoloConverterTileEntity) {
 						// then set the approprite properties
@@ -57,8 +53,7 @@ public class ClientPacketHandler implements IPacketHandler {
 				int x = data.readInt();
 				int y = data.readInt();
 				int z = data.readInt();
-				TileEntity tileEntity = player.worldObj.getBlockTileEntity(x,
-						y, z);
+				TileEntity tileEntity = player.worldObj.getBlockTileEntity(x, y, z);
 				if (tileEntity != null) {
 					if (tileEntity instanceof FuserTileEntity) {
 						// then set the approprite properties

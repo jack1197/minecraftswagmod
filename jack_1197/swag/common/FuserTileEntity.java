@@ -18,7 +18,7 @@ import cpw.mods.fml.common.network.PacketDispatcher;
 public class FuserTileEntity extends TileEntity implements IInventory {
 	private ItemStack[] inventory = new ItemStack[3];
 	public int progress = 0;
-	public static int maxProgress = 600;
+	public static int maxProgress = 60;
 	public int direction = 0;// 0 = infuse, 1 = defuse
 	private static int updateInterval = 5;
 	private int update = 5;
@@ -28,16 +28,68 @@ public class FuserTileEntity extends TileEntity implements IInventory {
 	private static ItemStack[][] fuseList = {
 			{
 					new ItemStack(Block.stone),
-					new ItemStack(SwagMod.swagDropItem),
-					new ItemStack(SwagMod.swagOreBlock) },
+					new ItemStack(SwagMod.yoloDropDenseItem, 1),
+					new ItemStack(SwagMod.swagModOreBlock, 1, 15) },
 			{
 					new ItemStack(Block.stone),
-					new ItemStack(SwagMod.yoloEssenceDenseItem),
-					new ItemStack(SwagMod.yoloOreBlock) },
+					new ItemStack(SwagMod.yoloDropItem, 2),
+					new ItemStack(SwagMod.swagModOreBlock, 1, 14) },
 			{
-					new ItemStack(Item.pickaxeGold),
-					new ItemStack(SwagMod.swagDropItem, 3),
-					new ItemStack(SwagMod.swagPickaxeItem) },
+					new ItemStack(Block.stone),
+					new ItemStack(SwagMod.yoloDropItem, 1),
+					new ItemStack(SwagMod.swagModOreBlock, 1, 13) },
+			{
+					new ItemStack(Block.stone),
+					new ItemStack(SwagMod.yoloEssenceDenseItem, 4),
+					new ItemStack(SwagMod.swagModOreBlock, 1, 12) },
+			{
+					new ItemStack(Block.stone),
+					new ItemStack(SwagMod.yoloEssenceDenseItem, 2),
+					new ItemStack(SwagMod.swagModOreBlock, 1, 11) },
+			{
+					new ItemStack(Block.stone),
+					new ItemStack(SwagMod.yoloEssenceDenseItem, 1),
+					new ItemStack(SwagMod.swagModOreBlock, 1, 10) },
+			{
+					new ItemStack(Block.stone),
+					new ItemStack(SwagMod.yoloEssenceItem, 2),
+					new ItemStack(SwagMod.swagModOreBlock, 1, 9) },
+			{
+					new ItemStack(Block.stone),
+					new ItemStack(SwagMod.yoloEssenceItem, 1),
+					new ItemStack(SwagMod.swagModOreBlock, 1, 8) },
+			{
+					new ItemStack(Block.stone),
+					new ItemStack(SwagMod.swagEssenceItem, 32),
+					new ItemStack(SwagMod.swagModOreBlock, 1, 7) },
+			{
+					new ItemStack(Block.stone),
+					new ItemStack(SwagMod.swagEssenceItem, 20),
+					new ItemStack(SwagMod.swagModOreBlock, 1, 6) },
+			{
+					new ItemStack(Block.stone),
+					new ItemStack(SwagMod.swagEssenceItem, 12),
+					new ItemStack(SwagMod.swagModOreBlock, 1, 5) },
+			{
+					new ItemStack(Block.stone),
+					new ItemStack(SwagMod.swagEssenceItem, 8),
+					new ItemStack(SwagMod.swagModOreBlock, 1, 4) },
+			{
+					new ItemStack(Block.stone),
+					new ItemStack(SwagMod.swagEssenceItem, 6),
+					new ItemStack(SwagMod.swagModOreBlock, 1, 3) },
+			{
+					new ItemStack(Block.stone),
+					new ItemStack(SwagMod.swagEssenceItem, 4),
+					new ItemStack(SwagMod.swagModOreBlock, 1, 2) },
+			{
+					new ItemStack(Block.stone),
+					new ItemStack(SwagMod.swagEssenceItem, 2),
+					new ItemStack(SwagMod.swagModOreBlock, 1, 1) },
+			{
+					new ItemStack(Block.stone),
+					new ItemStack(SwagMod.swagEssenceItem, 1),
+					new ItemStack(SwagMod.swagModOreBlock, 1, 0) },
 			{
 					new ItemStack(Item.axeGold),
 					new ItemStack(SwagMod.swagDropItem, 3),
@@ -81,7 +133,7 @@ public class FuserTileEntity extends TileEntity implements IInventory {
 			{
 					new ItemStack(SwagMod.yoloDropItem),
 					new ItemStack(Item.ingotIron, 1),
-					new ItemStack(SwagMod.yoloIngotItem) }, };
+					new ItemStack(SwagMod.yoloIngotItem) } };
 
 	private boolean canProcess() {
 
@@ -90,10 +142,10 @@ public class FuserTileEntity extends TileEntity implements IInventory {
 				int acceptable = 0;
 				// need a few fors and ifs to account for items but it the other way etc
 				// could probably be done in one messy big if(a && b && c && ...)
-				// EDIT: no longer works both ways untill i can be bothered fixing an isues, patched for now
+				// EDIT: no longer works both ways until i can be bothered fixing an issue, patched for now
 				for (int j = 0; j < 2; j++) {
 					for (int k = 0; k < 2; k++) {
-						if (getStackInSlot(k) != null && fuseList[i][j].getItem() == getStackInSlot(k).getItem() && fuseList[i][j].stackSize <= getStackInSlot(k).stackSize) {
+						if (getStackInSlot(k) != null && fuseList[i][j].getItem() == getStackInSlot(k).getItem() &&  fuseList[i][j].getItemDamage() == getStackInSlot(k).getItemDamage() && fuseList[i][j].stackSize <= getStackInSlot(k).stackSize) {
 							// ugly patch fix
 							if (k == j) {
 								acceptable++;
@@ -104,32 +156,34 @@ public class FuserTileEntity extends TileEntity implements IInventory {
 				}
 				if (acceptable == 2)// shouldnt be any other case that is acceptable
 				{
-					if (getStackInSlot(2) != null && getStackInSlot(2).getItem() == fuseList[i][2].getItem()
-							&& fuseList[i][2].stackSize + getStackInSlot(2).stackSize > fuseList[i][2].getMaxStackSize()) {
+					if (getStackInSlot(2) != null && getStackInSlot(2).getItem() == fuseList[i][2].getItem() && fuseList[i][2].stackSize + getStackInSlot(2).stackSize > fuseList[i][2].getMaxStackSize()) {
 						currentlyProcessing = -1;
-						return false;
+						continue;
 					} else if (getStackInSlot(2) != null && getStackInSlot(2).getItem() != fuseList[i][2].getItem()) {
 						currentlyProcessing = -1;
-						return false;
+						continue;
+					} else if (getStackInSlot(2) != null && getStackInSlot(2).getItemDamage() != fuseList[i][2].getItemDamage() && getStackInSlot(2).getItem() == fuseList[i][2].getItem()){
+						currentlyProcessing = -1;
+						continue;
 					}
 					currentlyProcessing = i;
 					return true;
 				}
 			} else {
-				if (getStackInSlot(2) != null && getStackInSlot(2).getItem() == fuseList[i][2].getItem() && fuseList[i][2].stackSize <= getStackInSlot(2).stackSize) {
-					if (getStackInSlot(0) != null && getStackInSlot(0).getItem() == fuseList[i][0].getItem()
+				if (getStackInSlot(2) != null && getStackInSlot(2).getItem() == fuseList[i][2].getItem() && getStackInSlot(2).getItemDamage() == fuseList[i][2].getItemDamage() && fuseList[i][2].stackSize <= getStackInSlot(2).stackSize) {
+					if (getStackInSlot(0) != null && getStackInSlot(0).getItem() == fuseList[i][0].getItem() && getStackInSlot(0).getItemDamage() == fuseList[i][0].getItemDamage()
 							&& fuseList[i][0].stackSize + getStackInSlot(0).stackSize > fuseList[i][0].getMaxStackSize()) {
 						currentlyProcessing = -1;
 						return false;
-					} else if (!(getStackInSlot(0) == null || getStackInSlot(0).getItem() == fuseList[i][0].getItem() || getStackInSlot(0).stackSize == 0)) {
+					} else if (!(getStackInSlot(0) == null || (getStackInSlot(0).getItem() == fuseList[i][0].getItem() && getStackInSlot(0).getItemDamage() == fuseList[i][0].getItemDamage()) || getStackInSlot(0).stackSize == 0)) {
 						currentlyProcessing = -1;
 						return false;
 					}
-					if (getStackInSlot(1) != null && getStackInSlot(1).getItem() == fuseList[i][1].getItem()
+					if (getStackInSlot(1) != null && getStackInSlot(1).getItem() == fuseList[i][1].getItem() && getStackInSlot(1).getItemDamage() == fuseList[i][1].getItemDamage()
 							&& fuseList[i][1].stackSize + getStackInSlot(1).stackSize > fuseList[i][1].getMaxStackSize()) {
 						currentlyProcessing = -1;
 						return false;
-					} else if (!(getStackInSlot(1) == null || getStackInSlot(1).getItem() == fuseList[i][1].getItem() || getStackInSlot(1).stackSize == 0)) {
+					} else if (!(getStackInSlot(1) == null || (getStackInSlot(1).getItem() == fuseList[i][1].getItem() && getStackInSlot(1).getItemDamage() == fuseList[i][1].getItemDamage())|| getStackInSlot(1).stackSize == 0)) {
 						currentlyProcessing = -1;
 						return false;
 					}
@@ -199,12 +253,12 @@ public class FuserTileEntity extends TileEntity implements IInventory {
 	void onDone() {
 		if (currentlyProcessing != -1) {
 			if (direction == 0) {
-				if (fuseList[currentlyProcessing][0].stackSize <= getStackInSlot(0).stackSize) {
+				if (fuseList[currentlyProcessing][0].stackSize < getStackInSlot(0).stackSize) {
 					decrStackSize(0, fuseList[currentlyProcessing][0].stackSize);
 				} else {
 					inventory[0] = null;
 				}
-				if (fuseList[currentlyProcessing][1].stackSize <= getStackInSlot(1).stackSize) {
+				if (fuseList[currentlyProcessing][1].stackSize < getStackInSlot(1).stackSize) {
 					decrStackSize(1, fuseList[currentlyProcessing][1].stackSize);
 				} else {
 					inventory[1] = null;
@@ -217,11 +271,13 @@ public class FuserTileEntity extends TileEntity implements IInventory {
 				}
 			} else {
 				if (getStackInSlot(0) != null && getStackInSlot(0).stackSize > 0) {
+					if(getStackInSlot(0).stackSize + fuseList[currentlyProcessing][0].stackSize < fuseList[currentlyProcessing][0].getMaxStackSize())
 					inventory[0].stackSize = inventory[0].stackSize + fuseList[currentlyProcessing][0].stackSize;
 				} else {
 					inventory[0] = fuseList[currentlyProcessing][0];
 				}
 				if (getStackInSlot(1) != null && getStackInSlot(1).stackSize > 0) {
+					if(getStackInSlot(1).stackSize + fuseList[currentlyProcessing][1].stackSize < fuseList[currentlyProcessing][1].getMaxStackSize())
 					inventory[1].stackSize = inventory[1].stackSize + fuseList[currentlyProcessing][1].stackSize;
 				} else {
 					inventory[1] = fuseList[currentlyProcessing][1];

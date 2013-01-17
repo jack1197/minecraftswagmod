@@ -9,7 +9,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class CustomFood extends ItemFood {
-    private boolean alwaysEdible = true;
+	private boolean alwaysEdible = true;
+
 	public CustomFood(int par1, int par2, boolean par3) {
 		super(par1, par2, par3);
 	}
@@ -30,11 +31,9 @@ public class CustomFood extends ItemFood {
 		}
 		return potion.onFoodEaten(par1ItemStack, par2World, par3EntityPlayer);
 	}
-	
-	
-	@Override 
-    public EnumAction getItemUseAction(ItemStack par1ItemStack)
-    {
-        return EnumAction.drink;
-    }
+
+	@Override
+	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
+		return EnumAction.drink;
+	}
 }
